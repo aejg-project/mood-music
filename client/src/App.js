@@ -5,10 +5,10 @@ import ApolloClient from 'apollo-boost';
 import { Container, Navbar, Nav } from "react-bootstrap";
 import './index.css'
 
-import Header from './components/Header';
-import BookList from './pages/BookList';
-import Detail from './pages/Detail';
+import HomePage from './components/HomePage';
 
+
+/*
 const client = new ApolloClient({
   uri: '/graphql'
 });
@@ -41,6 +41,6 @@ function App() {
       </Router>
     </ApolloProvider>
   );
-}
+}*/
 
 export default App;
