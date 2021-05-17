@@ -6,8 +6,9 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import './index.css'
 
 import Header from './components/Header';
-import BookList from './pages/BookList';
+import Login from './pages/Login';
 import Detail from './pages/Detail';
+import Signup from './pages/Signup';
 
 const client = new ApolloClient({
   uri: '/graphql'
@@ -23,7 +24,7 @@ function App() {
           <Header currentBook={currentBook} />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={BookList} />
+              <Route exact path="/" component={Signup} />
               <Route
                 exact
                 path="/book/:bookId"
