@@ -5,6 +5,9 @@ import ApolloClient from 'apollo-boost';
 import { Container, Navbar, Nav } from "react-bootstrap";
 import './index.css'
 
+import axios from 'axios';
+import { Credentials } from './Credentials';
+
 import Header from './components/Header';
 import BookList from './pages/BookList';
 import Detail from './pages/Detail';
