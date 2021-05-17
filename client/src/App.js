@@ -24,7 +24,9 @@ function App() {
           <Header currentBook={currentBook} />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Signup} />
+              <Route exact path="/" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
               <Route
                 exact
                 path="/book/:bookId"

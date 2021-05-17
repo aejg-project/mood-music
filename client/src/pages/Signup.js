@@ -47,16 +47,6 @@ function Signup(props) {
           />
         </div>
         <div className="flex-row space-between my-2">
-          <label htmlFor="lastName">Last Name:</label>
-          <input
-            placeholder="Last"
-            name="lastName"
-            type="lastName"
-            id="lastName"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="flex-row space-between my-2">
           <label htmlFor="email">Email:</label>
           <input
             placeholder="youremail@test.com"
@@ -75,6 +65,31 @@ function Signup(props) {
             id="pwd"
             onChange={handleChange}
           />
+        </div>
+        <div className="flex-row space-between my-2">
+          <label htmlFor="astrologicalSign">Astrological Sign:</label>
+          <select 
+            // value = { this.state.value }
+            placeholder="Sign"
+            name="astrologicalSign"
+            type="astrologicalSign"
+            id="astrologicalSign"
+            onChange={handleChange}>
+              <option value = "Aquarius">Aquarius (Jan. 20 - Febr. 18)</option>
+              <option value = "Pisces">Pisces (Feb. 19-Mar. 20)</option>
+              <option value = "Aries">Aries (Mar. 21 - Apr. 19)</option>
+              <option value = "Taurus">Taurus (Apr. 20 - May 20)</option>
+              <option value = "Gemini">Gemini (May 21 - Jun. 20)</option>
+              <option value = "Cancer">Cancer (Jun. 21 - Jul. 22)</option>
+              <option value = "Leo">Leo (Jul. 23 - Aug. 22)</option>
+              <option value = "Virgo">Virgo (Aug. 23 - Sep. 22)</option>
+              <option value = "Libra">Libra (Sep. 23 - Oct. 22)</option>
+              <option value = "Sorpio">Sorpio (Oct. 23 - Nov. 21)</option>
+              <option value = "Sagittarius">Sagittarius (Nov. 22 - Dec. 21)</option>
+              <option value = "Capricorn">Capricorn (Dec. 22 - Jan. 19)</option>
+
+
+            </select>
         </div>
         <div className="flex-row flex-end">
           <button type="submit">
