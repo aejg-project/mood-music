@@ -5,11 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-<<<<<<< HEAD
-    "watch": "nodemon",
-=======
     "watch": "nodemon"
->>>>>>> 936535194648ab65b6cc75f17dbd9581697fe9ed
   },
   "author": "",
   "license": "ISC",
