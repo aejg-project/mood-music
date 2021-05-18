@@ -6,7 +6,7 @@ import Book from '../components/Book';
 
 import { QUERY_BOOKS } from '../utils/queries';
 
-const Detail = ({ setCurrentBook, currentBook }) => {
+const Dashboard = ({ setCurrentBook, currentBook }) => {
   const { bookId } = useParams();
 
   const { data: bookData } = useQuery(QUERY_BOOKS);

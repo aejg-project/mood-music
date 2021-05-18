@@ -6,6 +6,7 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import './index.css'
 
 import Header from './components/Header';
+// import Footer from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
@@ -41,8 +42,10 @@ function App() {
             </Switch>
           </div>
         </div>
+        {/* <Footer /> */}
       </Router>
     </ApolloProvider>
+    
   );
 }
 
