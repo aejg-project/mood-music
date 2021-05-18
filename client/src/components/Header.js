@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 
 const Header = ({ currentBook }) => {
   return (
-    <header className="bg-info mb-4 py-2 flex-row align-center">
+    <header className="bg-light mb-4 py-2 flex-row align-center">
       <div className="container flex-row justify-space-between-lg justify-center align-center">
         
         <Link to="/">
-          <h1>Mood Music</h1>
+          <img src="./mm-logo.png" className="justify-content-md-center"/>
         </Link>
 
-        <h3>Now Viewing: {currentBook.title || 'Your book list'}</h3>
       </div>
     </header>
   );
