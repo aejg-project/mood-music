@@ -8,7 +8,7 @@ import './index.css'
 import Header from './components/Header';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Detail from './pages/Detail';
+import Dashboard from './pages/Dashboard';
 
 const client = new ApolloClient({
   uri: '/graphql'
@@ -31,7 +31,7 @@ function App() {
                 exact
                 path="/book/:bookId"
                 component={() => (
-                  <Detail
+                  <Dashboard
                     setCurrentBook={setCurrentBook}
                     currentBook={currentBook}
                   />

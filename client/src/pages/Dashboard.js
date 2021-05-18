@@ -30,4 +30,4 @@ const Detail = ({ setCurrentBook, currentBook }) => {
   );
 };
 
-export default Detail;
+export default Dashboard;
