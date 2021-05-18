@@ -1,11 +1,15 @@
 {
-  "name": "state-server",
+  "name": "mood-music-server",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+<<<<<<< HEAD
     "watch": "nodemon",
+=======
+    "watch": "nodemon"
+>>>>>>> 936535194648ab65b6cc75f17dbd9581697fe9ed
   },
   "author": "",
   "license": "ISC",

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ApolloProvider } from "@apollo/react-hooks";
-import ApolloClient from "apollo-boost";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
 import { Container, Navbar, Nav } from "react-bootstrap";
-import "./index.css";
+import './index.css'
 
 
 import axios from 'axios';
@@ -11,67 +11,46 @@ import { Credentials } from './Credentials';
 
 
 import HomePage from "./components/HomePage";
+
 import Header from './components/Header';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Detail from './pages/Detail';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: "Mood Music",
-      headerLinks: [
-        { title: "Home", path: "/" },
-        { title: "Login", path: "/login" },
-      ],
-      home: {
-        title: "Mood Music",
-      },
-      login: {
-        title: "Login",
-      },
-    };
-  }
-  render() {
-    return (
+const client = new ApolloClient({
+  uri: '/graphql'
+});
+
+function App() {
+  const [currentBook, setCurrentBook] = useState('');
+
+  return (
+    <ApolloProvider client={client}>
       <Router>
-        <Container className="p-0" fluid={true}>
-          <Navbar className="border-bottom" bg="transparent" expand="lg">
-            <Navbar.Brand>Mood Music</Navbar.Brand>
-
-            <Navbar.Toggle className="border-0" aria-controls="navbar-toggle" />
-            <Navbar.Collapse id="navbar-toggle">
-              <Nav className="ml-auto">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
-
-
-          <Route
-            path="/"
-            exact
-            render={() => <HomePage title={this.state.home.title} />}
-          />
-          <Route
-            path="/login"
-
-            render={() => <LogIn title={this.state.about.title} />}
-          />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Login} />
-          
-          <Footer />
-        </Container>
-
+        <div className="flex-column justify-flex-start min-100-vh">
+          <Header currentBook={currentBook} />
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route
+                exact
+                path="/book/:bookId"
+                component={() => (
+                  <Detail
+                    setCurrentBook={setCurrentBook}
+                    currentBook={currentBook}
+                  />
+                )}
+              />
+              <Route render={() => <h1>404! Wrong Page</h1>} />
+            </Switch>
+          </div>
+        </div>
       </Router>
-    );
-  }
+    </ApolloProvider>
+  );
 }
 
 export default App;
