@@ -35,7 +35,11 @@ function Signup(props) {
       </Link>
 
       <h2>Signup</h2>
+
       <form onSubmit={handleFormSubmit}>
+
+      <img src="./speakers.png"></img>
+
         <div className="flex-row space-between my-2">
           <label htmlFor="firstName">First Name:</label>
           <input
@@ -49,7 +53,7 @@ function Signup(props) {
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Email:</label>
           <input
-            placeholder="youremail@test.com"
+            placeholder="yourname@test.com"
             name="email"
             type="email"
             id="email"
@@ -96,6 +100,7 @@ function Signup(props) {
             Submit
           </button>
         </div>
+        
       </form>
     </div>
   );

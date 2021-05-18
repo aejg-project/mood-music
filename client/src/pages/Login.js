@@ -35,6 +35,9 @@ function Login(props) {
 
       <h2>Login</h2>
       <form onSubmit={handleFormSubmit}>
+
+      <img src="./speakers.png"></img>
+
         <div className="flex-row space-between my-2">
           <label htmlFor="email">Email address:</label>
           <input
