@@ -6,6 +6,9 @@ import { Container, Navbar, Nav } from "react-bootstrap";
 import "./index.css";
 
 import HomePage from "./components/HomePage";
+import Header from './components/Header';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 class App extends React.Component {
   constructor(props) {
@@ -44,6 +47,7 @@ class App extends React.Component {
             </Navbar.Collapse>
           </Navbar>
 
+
           <Route
             path="/"
             exact
@@ -51,11 +55,14 @@ class App extends React.Component {
           />
           <Route
             path="/login"
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
             render={() => <LogIn title={this.state.about.title} />}
           />
-
+          
           <Footer />
         </Container>
+
       </Router>
     );
   }
