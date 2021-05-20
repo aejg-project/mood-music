@@ -16,13 +16,13 @@ const Header = () => {
           <Navbar className="justify-content-center" bg="light" variant="light">
             <Nav defaultActiveKey="/home">
               <Nav.Item>
-                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="./">Home</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="#features">Log In</Nav.Link>
+                <Nav.Link href="/login">Log In</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link href="#pricing">Sign Up</Nav.Link>
+                <Nav.Link href="/signup">Sign Up</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link href="#pricing">Sign Out</Nav.Link>

@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import HomePage from "./pages/HomePage";
 
 const client = new ApolloClient({
   uri: '/graphql'
@@ -27,9 +28,11 @@ function App() {
           <Header />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/" component={HomePage} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/dashboard" component={Dashboard} />
+
               <Route
                 exact
                 path="/book/:bookId"
