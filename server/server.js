@@ -39,6 +39,14 @@ router.route('/getUser').get(function(req, res) {
   });
 });
 
+router.route('/addUser').post(function (req, res) {
+  const user = User.create(req);
+
+  if (!user) {
+    return res.status(400).json({ message: 'Something went wrong'});
+  }
+});
+
 db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`API server running on port http://localhost:${PORT}`);
