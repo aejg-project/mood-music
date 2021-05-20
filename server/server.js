@@ -47,6 +47,23 @@ router.route('/addUser').post(function (req, res) {
   }
 });
 
+router.route('/login').post(function(req, res) {
+  const user = User.findOne({ $or: [{ email: req.email}] })
+  if (!user) {
+    return res.status(400).json({ message: "User doesn't exist"});
+
+    const correctPw = user.isCorrectPassword(body.password);
+
+    if (!correctPw) {
+      return res.status(400).json({ message: 'Incorrect password'})
+    }
+    const token = signToken(user);
+    res.json({ token, user });
+  }
+})
+
+
+
 db.once('open', () => {
   app.listen(PORT, () => {
     console.log(`API server running on port http://localhost:${PORT}`);
