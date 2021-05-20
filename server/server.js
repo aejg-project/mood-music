@@ -47,19 +47,20 @@ router.route('/addUser').post(function (req, res) {
   }
 });
 
-router.route('/login').post(function(req, res) {
-  const user = User.findOne({ $or: [{ email: req.email}] })
-  if (!user) {
-    return res.status(400).json({ message: "User doesn't exist"});
+router.route('/login').post(function({ body }, res) {
+    const user = User.findOne({  email: body.email  });
+    if (!user) {
+      return res.status(400).json({ message: "Can't find this user" });
+    }
 
-    const correctPw = user.isCorrectPassword(body.password);
+    const validPassword = user.isCorrectPassword(body.password);
 
-    if (!correctPw) {
-      return res.status(400).json({ message: 'Incorrect password'})
+    if (!validPassword) {
+      return res.status(400).json({ message: 'Wrong password!' });
     }
     const token = signToken(user);
     res.json({ token, user });
-  }
+  
 })
 
 
