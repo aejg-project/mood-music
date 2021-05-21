@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const songSchema = new Schema(
   {
@@ -20,7 +20,6 @@ const songSchema = new Schema(
   }
 )
 
-const Song = model('Song', songSchema);
 
-// Exports the user model
-module.exports = Song;
+
+module.exports = songSchema;

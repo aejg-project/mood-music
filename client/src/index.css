@@ -208,3 +208,8 @@ input:focus {
     width: 100%;
   }
 }
+
+.mmlogo {
+  margin-left: auto;
+  margin-right: auto;
+}

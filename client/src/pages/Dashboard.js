@@ -1,3 +1,35 @@
+// import React, { useEffect } from 'react';
+// import { useQuery } from '@apollo/react-hooks';
+// import { useParams } from 'react-router-dom';
+
+// import Book from '../components/Book';
+
+// import { QUERY_BOOKS } from '../utils/queries';
+
+// const Dashboard = ({ setCurrentBook, currentBook }) => {
+//   const { bookId } = useParams();
+
+//   const { data: bookData } = useQuery(QUERY_BOOKS);
+
+//   const books = bookData?.books || [];
+
+//   useEffect(() => {
+//     setCurrentBook(books.find(({ _id }) => _id === bookId));
+
+//     return () => {
+//       setCurrentBook('');
+//     };
+//   });
+
+//   return (
+//     <main>
+//       <div className="m-5">
+//         {currentBook ? <Book {...currentBook} /> : <h2>Loading...</h2>}
+//       </div>
+//     </main>
+//   );
+// };
+
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -14,7 +46,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import MusicNote from '@material-ui/icons/MusicNote';
-// 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -33,11 +65,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: "#B350A5",
-    // background: rgb(124,42,232),
-    // backgroundColor: radial-gradient(circle, rgba(124,42,232,1) 0%, rgba(255,121,72,1) 44%, rgba(71,26,102,1) 100%),
+    backgroundColor: "#F1926E",
     padding: theme.spacing(8, 0, 6),
-    borderRadius: 10,
+    borderRadius: 10
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -47,18 +77,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '33%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    margin: "1rem",
   },
-
-  cardRow: {
-    display: "flex",
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-
   cardMedia: {
     paddingTop: '56.25%', // 16:9
   },
@@ -84,38 +106,19 @@ export default function Album() {
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Welcome!
+              Today's horoscope: 
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
               Eventually we can import the horoscope from the api here.
             </Typography>
-
           </Container>
         </div>
         {/* Horoscope ends here */}
 
         <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container>
-              <Grid >
-              <div className={classes.cardRow}>
-                {/* Card #1 */}
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/user/timmossholder"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      About Us
-                    </Typography>
-                    <Typography>
-                      We are here to help you find great music!
-                    </Typography>
-                  </CardContent>
-                </Card>
-
-                {/* Card #2 */}
+          <Grid container spacing={4}>
+            {cards.map((card) => (
+              <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -124,33 +127,19 @@ export default function Album() {
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Contact
+                      Song Name
                     </Typography>
                     <Typography>
-                      Connect with us on social media or Github.
+                      This is a media card. You can use this section to describe the content.
                     </Typography>
                   </CardContent>
+                  <CardActions style={{justifyContent: 'center'}}>
+                    <Button startIcon={<MusicNote />} variant="outlined" size="small" color="primary">
+                      Listen on YouTube
+                    </Button>                  </CardActions>
                 </Card>
-
-                {/* Card #3 */}
-                <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.cardMedia}
-                    image="https://source.unsplash.com/user/solenfeyissa"
-                    title="Image title"
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      How it works
-                    </Typography>
-                    <Typography>
-                      First time? Signup. Back for more? Log In.
-                    </Typography>
-                  </CardContent>
-                </Card>
-                </div>
               </Grid>
-             
+            ))}
           </Grid>
         </Container>
       </main>
