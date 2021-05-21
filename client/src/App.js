@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-import { Container, Navbar, Nav } from "react-bootstrap";
 import './index.css'
 
 import Header from './components/Header';
+import Footer from './components/Footer';
+// import Content from './components/Content';
+// import Horoscope from './components/Horoscope';
+// import Playlist from './components/Playlist';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Detail from './pages/Detail';
+import Dashboard from './pages/Dashboard';
+import HomePage from "./pages/HomePage";
 
 const client = new ApolloClient({
   request: operation => {
@@ -29,18 +33,20 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
-          <Header currentBook={currentBook} />
+        <div className="flex-column justify-center align-center min-100-vh">
+          <Header />
           <div className="container">
             <Switch>
-              <Route exact path="/" component={Login} />
+              <Route exact path="/" component={HomePage} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/dashboard" component={Dashboard} />
+
               <Route
                 exact
                 path="/book/:bookId"
                 component={() => (
-                  <Detail
+                  <Dashboard
                     setCurrentBook={setCurrentBook}
                     currentBook={currentBook}
                   />
@@ -50,8 +56,10 @@ function App() {
             </Switch>
           </div>
         </div>
+        <Footer />
       </Router>
     </ApolloProvider>
+    
   );
 }
 
