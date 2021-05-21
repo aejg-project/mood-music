@@ -2,23 +2,6 @@ const { User, Horoscope, Song } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express');
 
-const songs = [
-  {
-    title: 'World Eater',
-    artist: 'Blanck Mass',
-  },
-  {
-    title: 'Scattered',
-    artist: 'Green Day',
-  }
-];
-
-const me = [
-  {
-    email: 'garrett@email.com',
-    zodiacSign: 'Leo'
-  }
-]
 
 const resolvers = {
   Query: {
@@ -34,7 +17,6 @@ const resolvers = {
 
       throw new AuthenticationError('Please log in to get your songs!');
     },
-    songs: () => songs,
   },
   Mutation: {
     signUp: async (parent, args) => {

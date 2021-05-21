@@ -5,13 +5,16 @@ const db = require('./config/connection');
 const path = require('path');
 const { User } = require('./models');
 const router = express.Router();
+const { authMiddleware } = require('./utils/auth')
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: authMiddleware
 });
 
 server.applyMiddleware({ app });
@@ -29,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use("/", router);
 
-router.route('/getUser').get(function(req, res) {
+router.route('/getUsers').get(function(req, res) {
   User.find({}, function(err, result) {
     if (err) {
       res.send(err);
@@ -39,7 +42,20 @@ router.route('/getUser').get(function(req, res) {
   });
 });
 
-router.route('/addUser').post(function (req, res) {
+router.route('/me').get(function({ user = null, params }, res) {
+  const returnedUser = User.findOne({
+    //$or : [{ _id: user ? user._id : params.id }, { email: params.email }]
+     _id: user ? user._id : params.id 
+  });
+
+  if (!returnedUser) {
+    return res.status(400).json({ message: 'This is not the droid you are looking for' });
+  }
+
+  res.json(returnedUser);
+});
+
+router.route('/signUp').post(function (req, res) {
   const user = User.create(req);
 
   if (!user) {
@@ -50,7 +66,7 @@ router.route('/addUser').post(function (req, res) {
 router.route('/login').post(function({ body }, res) {
     const user = User.findOne({  email: body.email  });
     if (!user) {
-      return res.status(400).json({ message: "Can't find this user" });
+      return res.status(400).json({ message: "This is not the droid you are looking for" });
     }
 
     const validPassword = user.isCorrectPassword(body.password);
@@ -61,7 +77,7 @@ router.route('/login').post(function({ body }, res) {
     const token = signToken(user);
     res.json({ token, user });
   
-})
+});
 
 
 

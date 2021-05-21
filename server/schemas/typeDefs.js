@@ -4,14 +4,15 @@ const typeDefs = gql`
   type Query {
     users: [User]
     me: User
-    songs: [Song]
-    song: Song
   }
 
   type User {
     _id: ID!
     email: String!
     zodiacSign: String!
+    preferredGenre: String
+    dailyHoroscope: [Horoscope]
+    dailySong: [Song]
   }
 
   type Song {
@@ -30,7 +31,6 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     signUp(email: String! password: String!, zodiacSign: String!, preferredGenre: String): Auth
-
   }
 
   type Auth {

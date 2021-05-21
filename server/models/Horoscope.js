@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema } = require('mongoose');
 
 const horoscopeSchema = new Schema(
   {
@@ -14,6 +14,4 @@ const horoscopeSchema = new Schema(
   }
 )
 
-const Horoscope = model('Horoscope', horoscopeSchema);
-
-module.exports = Horoscope;
+module.exports = horoscopeSchema;

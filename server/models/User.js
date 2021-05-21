@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const horoscopeSchema = require('./Horoscope');
+const songSchema = require('./Song');
 
 
 
@@ -23,7 +25,9 @@ const userSchema = new Schema(
     preferredGenre: {
       type: String,
       required: true
-    }
+    },
+    dailyHoroscope: [horoscopeSchema],
+    dailySong: [songSchema]
   }
 );
 

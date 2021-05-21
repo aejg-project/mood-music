@@ -4,12 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import Book from '../components/Book';
 
-import { QUERY_BOOKS } from '../utils/queries';
+import { GET_USER } from '../utils/queries';
 
 const Detail = ({ setCurrentBook, currentBook }) => {
   const { bookId } = useParams();
 
-  const { data: bookData } = useQuery(QUERY_BOOKS);
+  const { data: bookData } = useQuery(GET_USER);
 
   const books = bookData?.books || [];
 

@@ -1,13 +1,24 @@
 import gql from 'graphql-tag';
 
-export const QUERY_BOOKS = gql`
-  query books {
-    books {
+export const GET_USER = gql`
+  {
+    me {
       _id
-      title
-      author
-      pages
-      description
+      email
+      zodiacSign
+      preferredGenre
+      dailyHoroscope {
+        sign
+        date
+        body
+      }
+      songSchema {
+        song
+        title
+        artist
+        albumArt
+        linkToSong
+      }
     }
   }
 `;
