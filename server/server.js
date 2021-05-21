@@ -42,18 +42,35 @@ router.route('/getUsers').get(function(req, res) {
   });
 });
 
-router.route('/me').get(function({ user = null, params }, res) {
-  const returnedUser = User.findOne({
-    //$or : [{ _id: user ? user._id : params.id }, { email: params.email }]
-     _id: user ? user._id : params.id 
-  });
+// router.route('/me').get(function(req, res) {
+//   User.findOne({ "_id": req.body._id }, function(err, result) {
+//     if (err) {
+//       res.send(err);
+//     } else {
+//       res.send(result);
+//     }
+//   });
+// });
 
+/*
+THIS DOES NOT WORK
+
+router.route('/me').get(function( { _id }, res) {
+  const returnedUser = User.findOne( { "_id"  );
+
+  try {
   if (!returnedUser) {
     return res.status(400).json({ message: 'This is not the droid you are looking for' });
   }
 
   res.json(returnedUser);
+  }
+  catch {
+    console.log('there has been an error')
+  }
 });
+*/
+
 
 router.route('/signUp').post(function (req, res) {
   const user = User.create(req);

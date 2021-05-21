@@ -3,16 +3,18 @@ const bcrypt = require('bcrypt');
 const horoscopeSchema = require('./Horoscope');
 const songSchema = require('./Song');
 
-
-
 // SCHEMA OPTIONS
 const userSchema = new Schema(
   {
+    firstName: {
+      type: String,
+      required: true
+    },
     email: {
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address']
+      match: [/.+@.+\..+/, 'Please enter a valid email address']
     },
     password: {
       type: String,
