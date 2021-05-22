@@ -185,6 +185,7 @@ export default function SignInSide() {
               </Grid>
             </Grid>
           </form>
+          {error && <div>Sign up failed</div>}
         </div>
       </Grid>
     </Grid>

@@ -138,6 +138,7 @@ export default function SignInSide() {
             </Grid>
             <Box mt={5}></Box>
           </form>
+          {error && <div>Login failed</div>}
         </div>
       </Grid>
     </Grid>
