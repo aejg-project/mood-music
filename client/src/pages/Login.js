@@ -1,40 +1,46 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import StarOutline from '@material-ui/icons/StarOutline';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import StarOutline from "@material-ui/icons/StarOutline";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+
+import { useMutation } from "@apollo/react-hooks";
+import { LOGIN } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100%',
+    height: "100%",
   },
   image: {
     backgroundImage: "url('./woman-music.jpg')",
-    backgroundRepeat: 'no-repeat',
+    backgroundRepeat: "no-repeat",
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      theme.palette.type === "light"
+        ? theme.palette.grey[50]
+        : theme.palette.grey[900],
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -44,6 +50,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+
+  const [inputState, setInputState] = useState({ email: "", password: "" });
+  const [login, { error }] = useMutation(LOGIN);
+
+  // Update the state if the input changes
+  const inputChange = (event) => {
+    const { name, value } = event.target;
+
+    setInputState({
+      ...inputState,
+      [name]: value,
+    });
+  };
+
+  // submit login form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { data } = await login({
+        variables: { ...inputState },
+      });
+
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -57,13 +91,16 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form className={classes.form} noValidate>
+          {/* noValidate was below after the className, not sure if necessary*/}
+          <form className={classes.form} onSubmit={handleFormSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
               id="email"
+              value={inputState.email}
+              onChange={inputChange}
               label="Email Address"
               name="email"
               autoComplete="email"
@@ -78,6 +115,8 @@ export default function SignInSide() {
               label="Password"
               type="password"
               id="password"
+              value={inputState.password}
+              onChange={inputChange}
               autoComplete="current-password"
             />
             <Button
@@ -90,16 +129,14 @@ export default function SignInSide() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-              </Grid>
+              <Grid item xs></Grid>
               <Grid item>
                 <Link href="./signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-            </Box>
+            <Box mt={5}></Box>
           </form>
         </div>
       </Grid>

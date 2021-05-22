@@ -12,9 +12,12 @@ mutation login($email: String!, $password: String!) {
 `;
 
 export const ADD_USER = gql`
-mutation signUp($email: String!, $password: String!, $zodiacSign: String!, $preferredGenre: String) { 
-  signUp(email:$email, password: $password, zodiacSign: $zodiacSign, preferredGenre: $preferredGenre) {
+mutation signUp($firstName: String!, $email: String!, $password: String!, $zodiacSign: String) { 
+  signUp(firstName: $firstName, email:$email, password: $password, zodiacSign: $zodiacSign) {
     token
+    user {
+      _id
+    }
   }
 }
 `;

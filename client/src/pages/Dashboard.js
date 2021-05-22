@@ -30,32 +30,32 @@
 //   );
 // };
 
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import CameraIcon from '@material-ui/icons/PhotoCamera';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import MusicNote from '@material-ui/icons/MusicNote';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+import CameraIcon from "@material-ui/icons/PhotoCamera";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Link from "@material-ui/core/Link";
+import MusicNote from "@material-ui/icons/MusicNote";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: "#F1926E",
     padding: theme.spacing(8, 0, 6),
-    borderRadius: 10
+    borderRadius: 10,
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -77,12 +77,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -105,10 +105,21 @@ export default function Album() {
         {/* Horoscope Section */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              Today's horoscope: 
+            <Typography
+              component="h1"
+              variant="h2"
+              align="center"
+              color="textPrimary"
+              gutterBottom
+            >
+              Today's horoscope:
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
               Eventually we can import the horoscope from the api here.
             </Typography>
           </Container>
@@ -130,13 +141,20 @@ export default function Album() {
                       Song Name
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe the content.
+                      This is a media card. You can use this section to describe
+                      the content.
                     </Typography>
                   </CardContent>
-                  <CardActions style={{justifyContent: 'center'}}>
-                    <Button startIcon={<MusicNote />} variant="outlined" size="small" color="primary">
+                  <CardActions style={{ justifyContent: "center" }}>
+                    <Button
+                      startIcon={<MusicNote />}
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                    >
                       Listen on YouTube
-                    </Button>                  </CardActions>
+                    </Button>{" "}
+                  </CardActions>
                 </Card>
               </Grid>
             ))}

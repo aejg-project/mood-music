@@ -6,7 +6,6 @@ export const GET_USER = gql`
       _id
       email
       zodiacSign
-      preferredGenre
       dailyHoroscope {
         sign
         date
