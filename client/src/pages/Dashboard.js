@@ -30,7 +30,7 @@
 //   );
 // };
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CameraIcon from "@material-ui/icons/PhotoCamera";
@@ -46,6 +46,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import MusicNote from "@material-ui/icons/MusicNote";
+import axios from 'axios';
+
 
 function Copyright() {
   return (
@@ -96,6 +98,17 @@ const useStyles = makeStyles((theme) => ({
 const cards = [1, 2, 3];
 
 export default function Album() {
+  
+  const [ horoscope, setHoroscope ] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/getHoroscope?zodiac=leo')
+    .then(response => {
+      console.log(response.data);
+      setHoroscope(response.data)
+    })
+  })
+
   const classes = useStyles();
 
   return (
@@ -120,7 +133,7 @@ export default function Album() {
               color="textSecondary"
               paragraph
             >
-              Eventually we can import the horoscope from the api here.
+              {horoscope}
             </Typography>
           </Container>
         </div>
