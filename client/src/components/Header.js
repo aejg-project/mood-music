@@ -33,19 +33,19 @@ const Header = () => {
                 <Nav.Link href="/dashboard">Dashboard</Nav.Link>
               </Nav.Item> */}
               <Nav.Item>
-                  {Auth.loggedIn() ? (
-                    <>
-                      <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                      <Nav.Link href="/login" onClick={logout}>
-                        Logout
-                      </Nav.Link>
-                    </>
-                  ) : (
-                    <>
-                      <Nav.Link href="/login">Log In</Nav.Link>
-                      <Nav.Link href="/signup">Sign Up</Nav.Link>
-                    </>
-                  )}
+                {Auth.loggedIn() ? (
+                  <Nav.Item>
+                    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                    <Nav.Link href="/login" onClick={logout}>
+                      Logout
+                    </Nav.Link>
+                  </Nav.Item>
+                ) : (
+                  <>
+                    <Nav.Link href="/login">Log In</Nav.Link>
+                    <Nav.Link href="/signup">Sign Up</Nav.Link>
+                  </>
+                )}
               </Nav.Item>
             </Nav>
           </Navbar>
