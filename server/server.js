@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use("/", router);
 
-router.route("/getUsers").get(function (req, res) {
+router.route("/getUsers").get(function (_, res) {
   User.find({}, function (err, result) {
     if (err) {
       res.send(err);
@@ -48,8 +48,9 @@ router.route("/getUsers").get(function (req, res) {
 
 
 // Function to get daily horoscope
-router.route("/getHoroscope").get(async function ({ query }, res) {
+router.route("/getHoroscope").get(async function (_, res) {
 
+  // Make call to get user and pull zodic sign, update axios request below and plug-in the sign
   const response = await axios.get('https://ohmanda.com/api/horoscope/' + query.zodiac);
   res.send(response.data.horoscope);
 });

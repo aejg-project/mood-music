@@ -105,9 +105,9 @@ export default function Album() {
     axios.get('http://localhost:3001/getHoroscope?zodiac=leo')
     .then(response => {
       console.log(response.data);
-      setHoroscope(response.data)
+      setHoroscope(response.data);
     })
-  })
+  }, [horoscope])
 
   const classes = useStyles();
 
