@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   heroContent: {
     backgroundColor: "#B350A5",
     // background: rgb(124,42,232),
-    // backgroundColor: radial-gradient(circle, rgba(124,42,232,1) 0%, rgba(255,121,72,1) 44%, rgba(71,26,102,1) 100%),
+    // background: radial-gradient(circle, rgba(124,42,232,1) 0%, rgba(255,121,72,1) 44%, rgba(71,26,102,1) 100%),
     padding: theme.spacing(8, 0, 6),
     borderRadius: 10,
   },
