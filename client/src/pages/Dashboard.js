@@ -18,7 +18,6 @@ import axios from 'axios';
 import { Credentials } from '../Credentials';
 
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -65,17 +64,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3];
+
 
 export default function Album() {
   
+  // SET HOROSCOPE
   const [ horoscope, setHoroscope ] = useState('');
-  const [song, setSong ] = useState('');
+
+  // SET ARTIST NAME (1-3)
+  const [ artistName1, setArtistName1 ] = useState('');
+  const [ artistName2, setArtistName2 ] = useState('');
+  const [ artistName3, setArtistName3 ] = useState('');
+
+  // SET ARTIST IMAGE (1-3)
+  const [ artistImage1, setArtistImage1 ] = useState('');
+  const [ artistImage2, setArtistImage2 ] = useState('');
+  const [ artistImage3, setArtistImage3 ] = useState('');
 
   const spotify = Credentials();
 
-  const [token, setToken] = useState('');  
-  const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
+  const [_, setToken] = useState('');  
+  const [genres] = useState({selectedGenre: ''});
 
 
   useEffect(() => {
@@ -98,45 +107,41 @@ export default function Album() {
     })
     .then(tokenResponse => {      
       setToken(tokenResponse.data.access_token);
+      const randomOffset = getRandomNumber(5, 20);
 
-      axios('https://api.spotify.com/v1/search?q=%20genre:%22indie%22&type=artist&offset=0&limit=3', {
+      axios(`https://api.spotify.com/v1/search?q=%20genre:%22indie%22&type=artist&offset=${randomOffset}&limit=3`, {
         method: 'GET',
         headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
       })
-      .then (response => {        
-        // setGenres({
-        //   selectedGenre: genres.selectedGenre,
-        //   listOfGenresFromAPI: genreResponse.data.categories.items
+      .then (response => {   
+        // API response from server 
         console.log(response)
+        console.log(response.data.artists.items[0].images[1].url);
+
+        // SET ARTIST NAME
+        setArtistName1(response.data.artists.items[0].name);
+
+        // SET ARTIST IMAGE
+        setArtistImage1(response.data.artists.items[1].images.url);
+
         })
-      // .catch(err => {
-      //   console.log(err);
-      // })
       });
       
 
+  }, [spotify.ClientId, spotify.ClientSecret]); 
 
-  }, [genres.selectedGenre, spotify.ClientId, spotify.ClientSecret]); 
 
-  // const genreChanged = val => {
-  //   setGenres({
-  //     selectedGenre: mood, 
-  //     listOfGenresFromAPI: genres.listOfGenresFromAPI
-  //   });
+//------------------------------------------
+// RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
+  function getRandomNumber (min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
-  //   axios(`https://api.spotify.com/v1/browse/categories/mood/playlists?limit=10`, {
-  //     method: 'GET',
-  //     headers: { 'Authorization' : 'Bearer ' + token}
-  //   })
-  //   .then(playlistResponse => {
-  //     setPlaylist({
-  //       selectedPlaylist: playlist.selectedPlaylist,
-  //       listOfPlaylistFromAPI: playlistResponse.data.playlists.items
-  //     })
-  //   });
+//------------------------------------------
 
-  //   console.log(val);
-  // }
+  const cards = [1, 2, 3];
 
   const classes = useStyles();
 
@@ -175,16 +180,15 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/user/bekkybekks"
+                    image= "https://i.scdn.co/image/05c77688da89cc4cc2388bf98dd374ef5cbd4797"
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Song Name
+                      <b>{artistName1}</b>
                     </Typography>
                     <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
+                      Generes: 
                     </Typography>
                   </CardContent>
                   <CardActions style={{ justifyContent: "center" }}>
@@ -194,7 +198,7 @@ export default function Album() {
                       size="small"
                       color="primary"
                     >
-                      Listen on YouTube
+                      Listen on Spotify
                     </Button>{" "}
                   </CardActions>
                 </Card>
