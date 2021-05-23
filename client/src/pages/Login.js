@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   image: {
-    backgroundImage: "url('./woman-music.jpg')",
+    backgroundImage: "url('./woman.png')",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
