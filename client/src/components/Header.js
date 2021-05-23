@@ -12,8 +12,8 @@ const Header = () => {
   };
   return (
     <header className="bg-light mb-4 py-2 flex-row align-center">
-      <div className="mmlogo container flex-row justify-center align-center">
-        <Link to="/">
+      <div className="mmlogo justify-center align-center">
+        <Link to="/" className="mmlogo container flex-row justify-center align-center">
           <img src="./mm-logo.png" />
         </Link>
         <Container>
