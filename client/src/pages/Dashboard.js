@@ -146,62 +146,62 @@ export default function Album() {
     switch(sign){
       case "Aries":
         // Upbeat, fiery, dancing (no slow songs)
-        genres = ["", "", ""]
+        genres = ["dance", "hip-hop", "house", "reggaeton"]
         break;
 
         // Earth sign, raw, emotional music, organic, classic sound
       case "Taurus":
-        genres = ["", "", ""]
+        genres = ["folk", "singer-songwriter", "guitar"]
         break;
 
         // Air sign, lyrical music, techno, electronic
       case "Gemini":
-        genres = ["", "", ""]
+        genres = ["electronic", "trance", "hip-hop", "detroit-techno"]
         break;
 
         // Water, thought-provoking, creative, relatable music
       case "Cancer":
-        genres = ["", "", ""]
+        genres = ["singer-songwriter", "alt-rock", "folk", "indie"]
         break;
 
         // Fiery, anthemic, ego-boosting, conquering, empowering
       case "Leo":
-        genres = ["", "", ""]
+        genres = ["pop", "alternative", "deep-house", "reggaeton"]
         break;
 
         // Earth sign, sensual, ambient, soulful, jazzy, upbeat
       case "Virgo":
-        genres = ["", "", ""]
+        genres = ["jazz", "ambient", "happy"]
         break;
 
         // Love songs, romantic, positive (no sad tunes)
       case "Libra":
-        genres = ["", "", ""]
+        genres = ["country", "r-n-b", "power-pop"]
         break;
 
         // Water sign, intense, sensual, romance, dark, emotional
       case "Scorpio":
-        genres = ["", "", ""]
+        genres = ["soul", "goth", "r-n-b", "trip-hop"]
         break;
 
         // Fiery, high-energy, dance, pop, active
       case "Sagittarius":
-        genres = ["", "", ""]
+        genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"]
         break;
 
         // Sophisticated, intelligent, jazz, lyrical, soulful
       case "Capricorn":
-        genres = ["", "", ""]
+        genres = ["jazz", "soul", "idm", "classical", "rock"]
         break;
 
         // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
       case "Aquarius":
-        genres = ["", "", ""]
+        genres = ["chill", "songwriter", "minimal-techno", "indie-pop"]
         break;
 
         // Water sign, trippy, melancholy, nostalgic, emotive,
       case "Pisces":
-        genres = ["", "", ""]
+        genres = ["psych-rock", "synth-pop", "emo", ]
         break;
     }
   }
