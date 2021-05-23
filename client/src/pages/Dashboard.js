@@ -215,6 +215,7 @@ export default function Album() {
 
   return (
     <React.Fragment>
+
       <button
         onClick={() => {
           console.log(userData);
@@ -222,6 +223,7 @@ export default function Album() {
       >
         CLICK
       </button>
+      
       <CssBaseline />
       <main>
         {/* Horoscope Section */}
