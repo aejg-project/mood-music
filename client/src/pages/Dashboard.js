@@ -16,7 +16,6 @@ import Link from "@material-ui/core/Link";
 import MusicNote from "@material-ui/icons/MusicNote";
 import axios from "axios";
 import { Credentials } from "../Credentials";
-
 import { useQuery } from "@apollo/react-hooks";
 import { GET_USER } from "../utils/queries";
 
@@ -87,16 +86,25 @@ export default function Album() {
   // GETS USER DATA
   const { data: userData } = useQuery(GET_USER);
 
-  useEffect(() => {
-    console.log(userData);
+  // GETS ZODIAC SIGN
+  const [zodiacSign, setZodiacSign] = useState(userData);
 
+
+  useEffect(() => {
+    setZodiacSign(userData?.me?.zodiacSign);
+    // console.log(zodiacSign);
+
+    if(zodiacSign){
+      console.log(userData?.me?.zodiacSign)
+    }
+    
     axios
-      .get("http://localhost:3001/getHoroscope?zodiac=leo")
-      .then((response) => {
-        console.log(response.data);
-        setHoroscope(response.data);
-      });
-  }, [horoscope]);
+    .get("http://localhost:3001/getHoroscope?zodiac=leo")
+    .then((response) => {
+      console.log(response.data);
+      setHoroscope(response.data);
+    }); 
+  }, [ zodiacSign, horoscope]);
 
   useEffect(() => {
     axios("https://accounts.spotify.com/api/token", {
