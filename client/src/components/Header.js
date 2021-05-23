@@ -24,7 +24,8 @@ const Header = () => {
                   <Nav.Item > 
                     <a href="/login" onClick={logout}>Logout</a>
                     <Navbar.Text>
-                      Signed in as: <a href="#">Mr. Ed</a>
+                    <a href="/dashboard">Dashboard</a>
+                      {/* Signed in as: <a href="#">Mr. Ed</a> */}
                     </Navbar.Text>
                   </Nav.Item>
                 ) : (
