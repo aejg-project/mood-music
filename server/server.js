@@ -10,6 +10,7 @@ const { authMiddleware } = require("./utils/auth");
 const { assertValidExecutionArguments } = require("graphql/execution/execute");
 const axios = require('axios');
 
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -48,11 +49,19 @@ router.route("/getUsers").get(function (_, res) {
 
 
 // Function to get daily horoscope
-router.route("/getHoroscope").get(async function (_, res) {
+router.route("/getHoroscope").get(async function ({ query }, res) {
 
   // Make call to get user and pull zodic sign, update axios request below and plug-in the sign
   const response = await axios.get('https://ohmanda.com/api/horoscope/' + query.zodiac);
   res.send(response.data.horoscope);
+});
+
+// Function to get daily song
+router.route("/getSong").get(async function ({ query }, res) {
+
+  // Make call to get user and pull song, update axios request below and plug-in the song
+  const response = await axios.get('https://accounts.spotify.com/authorize');
+  res.send(response.data);
 });
 
 

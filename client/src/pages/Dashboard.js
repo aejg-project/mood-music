@@ -1,35 +1,3 @@
-// import React, { useEffect } from 'react';
-// import { useQuery } from '@apollo/react-hooks';
-// import { useParams } from 'react-router-dom';
-
-// import Book from '../components/Book';
-
-// import { QUERY_BOOKS } from '../utils/queries';
-
-// const Dashboard = ({ setCurrentBook, currentBook }) => {
-//   const { bookId } = useParams();
-
-//   const { data: bookData } = useQuery(QUERY_BOOKS);
-
-//   const books = bookData?.books || [];
-
-//   useEffect(() => {
-//     setCurrentBook(books.find(({ _id }) => _id === bookId));
-
-//     return () => {
-//       setCurrentBook('');
-//     };
-//   });
-
-//   return (
-//     <main>
-//       <div className="m-5">
-//         {currentBook ? <Book {...currentBook} /> : <h2>Loading...</h2>}
-//       </div>
-//     </main>
-//   );
-// };
-
 import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -47,6 +15,8 @@ import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import MusicNote from "@material-ui/icons/MusicNote";
 import axios from 'axios';
+import { Credentials } from '../Credentials';
+
 
 
 function Copyright() {
@@ -100,6 +70,13 @@ const cards = [1, 2, 3];
 export default function Album() {
   
   const [ horoscope, setHoroscope ] = useState('');
+  const [song, setSong ] = useState('');
+
+  const spotify = Credentials();
+
+  const [token, setToken] = useState('');  
+  const [genres, setGenres] = useState({selectedGenre: '', listOfGenresFromAPI: []});
+
 
   useEffect(() => {
     axios.get('http://localhost:3001/getHoroscope?zodiac=leo')
@@ -107,7 +84,59 @@ export default function Album() {
       console.log(response.data);
       setHoroscope(response.data);
     })
-  }, [horoscope])
+  }, [horoscope]);
+
+  useEffect(() => {
+
+    axios('https://accounts.spotify.com/api/token', {
+      headers: {
+        'Content-Type' : 'application/x-www-form-urlencoded',
+        'Authorization' : 'Basic ' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
+      },
+      data: 'grant_type=client_credentials',
+      method: 'POST'
+    })
+    .then(tokenResponse => {      
+      setToken(tokenResponse.data.access_token);
+
+      axios('https://api.spotify.com/v1/search?q=%20genre:%22indie%22&type=artist&offset=0&limit=3', {
+        method: 'GET',
+        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
+      })
+      .then (response => {        
+        // setGenres({
+        //   selectedGenre: genres.selectedGenre,
+        //   listOfGenresFromAPI: genreResponse.data.categories.items
+        console.log(response)
+        })
+      // .catch(err => {
+      //   console.log(err);
+      // })
+      });
+      
+
+
+  }, [genres.selectedGenre, spotify.ClientId, spotify.ClientSecret]); 
+
+  // const genreChanged = val => {
+  //   setGenres({
+  //     selectedGenre: mood, 
+  //     listOfGenresFromAPI: genres.listOfGenresFromAPI
+  //   });
+
+  //   axios(`https://api.spotify.com/v1/browse/categories/mood/playlists?limit=10`, {
+  //     method: 'GET',
+  //     headers: { 'Authorization' : 'Bearer ' + token}
+  //   })
+  //   .then(playlistResponse => {
+  //     setPlaylist({
+  //       selectedPlaylist: playlist.selectedPlaylist,
+  //       listOfPlaylistFromAPI: playlistResponse.data.playlists.items
+  //     })
+  //   });
+
+  //   console.log(val);
+  // }
 
   const classes = useStyles();
 

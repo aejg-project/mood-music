@@ -11,8 +11,8 @@ const resolvers = {
           _id: context.user._id
         })
         .select('-__v -password')
-        .populate('dailyHoroscope')
-        .populate('dailySong');
+        // .populate('dailyHoroscope')
+        // .populate('dailySong');
 
         return userData;
       }
