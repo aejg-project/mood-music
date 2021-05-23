@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
-import { Container } from "react-bootstrap";
+import { Container, NavDropdown } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
-
 import Auth from "../utils/auth";
 
 const Header = () => {
@@ -18,32 +17,21 @@ const Header = () => {
           <img src="./mm-logo.png" />
         </Link>
         <Container>
-          <Navbar className="justify-content-center" bg="light" variant="light">
-            <Nav defaultActiveKey="/home">
-              <Nav.Item>
-                <Nav.Link href="./">Home</Nav.Link>
-              </Nav.Item>
-              {/* <Nav.Item>
-                <Nav.Link href="/login">Log In</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link href="/signup">Sign Up</Nav.Link>
-              </Nav.Item> */}
-              {/* <Nav.Item>
-                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-              </Nav.Item> */}
+          <Navbar expand="true" className="justify-content-center" bg="light" variant="light">
+            <Nav  defaultActiveKey="/home">
               <Nav.Item>
                 {Auth.loggedIn() ? (
-                  <Nav.Item>
-                    <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                    <Nav.Link href="/login" onClick={logout}>
-                      Logout
-                    </Nav.Link>
+                  <Nav.Item > 
+                    <a href="/login" onClick={logout}>Logout</a>
+                    <Navbar.Text>
+                      Signed in as: <a href="#">Mr. Ed</a>
+                    </Navbar.Text>
                   </Nav.Item>
                 ) : (
                   <>
-                    <Nav.Link href="/login">Log In</Nav.Link>
-                    <Nav.Link href="/signup">Sign Up</Nav.Link>
+                    <a href="./">Home</a>
+                    <a href="/login">Log In</a>
+                    <a href="/signup">Sign Up</a>
                   </>
                 )}
               </Nav.Item>
