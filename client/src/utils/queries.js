@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_USER = gql`
   {
@@ -11,13 +11,19 @@ export const GET_USER = gql`
         date
         body
       }
-      songSchema {
+    }
+  }
+`;
+
+
+// go back to try and add artist/song schema
+
+/* 
+songSchema {
         song
         title
         artist
         albumArt
         linkToSong
       }
-    }
-  }
-`;
+*/

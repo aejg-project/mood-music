@@ -17,7 +17,7 @@ const resolvers = {
         return userData;
       }
 
-      throw new AuthenticationError('Please log in to get your songs!');
+      throw new AuthenticationError('Please log in to allow us to curate!');
     },
   },
   Mutation: {

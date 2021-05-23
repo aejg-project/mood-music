@@ -14,9 +14,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import MusicNote from "@material-ui/icons/MusicNote";
-import axios from 'axios';
-import { Credentials } from '../Credentials';
+import axios from "axios";
+import { Credentials } from "../Credentials";
 
+import { useQuery } from "@apollo/react-hooks";
+import { GET_USER } from "../utils/queries";
 
 function Copyright() {
   return (
@@ -64,15 +66,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function Album() {
-  
   // SET HOROSCOPE
-  const [ horoscope, setHoroscope ] = useState('');
+  const [horoscope, setHoroscope] = useState("");
 
   // SET ARTIST NAME (1-3)
-  const [ artistName1, setArtistName1 ] = useState('');
+  const [artistName1, setArtistName1] = useState("");
   // const [ artistName2, setArtistName2 ] = useState('');
   // const [ artistName3, setArtistName3 ] = useState('');
 
@@ -83,37 +82,43 @@ export default function Album() {
 
   const spotify = Credentials();
 
-  const [_, setToken] = useState('');  
+  const [_, setToken] = useState("");
 
+  const { data: userData } = useQuery(GET_USER);
   useEffect(() => {
-    axios.get('http://localhost:3001/getHoroscope?zodiac=leo')
-    .then(response => {
-      console.log(response.data);
-      setHoroscope(response.data);
-    })
+    // console.log(userData);
+    axios
+      .get("http://localhost:3001/getHoroscope?zodiac=leo")
+      .then((response) => {
+        console.log(response.data);
+        setHoroscope(response.data);
+      });
   }, [horoscope]);
 
   useEffect(() => {
-
-    axios('https://accounts.spotify.com/api/token', {
+    axios("https://accounts.spotify.com/api/token", {
       headers: {
-        'Content-Type' : 'application/x-www-form-urlencoded',
-        'Authorization' : 'Basic ' + btoa(spotify.ClientId + ':' + spotify.ClientSecret)      
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
       },
-      data: 'grant_type=client_credentials',
-      method: 'POST'
-    })
-    .then(tokenResponse => {      
+      data: "grant_type=client_credentials",
+      method: "POST",
+    }).then((tokenResponse) => {
       setToken(tokenResponse.data.access_token);
       const randomOffset = getRandomNumber(5, 20);
 
-      axios(`https://api.spotify.com/v1/search?q=%20genre:%22indie%22&type=artist&offset=${randomOffset}&limit=3`, {
-        method: 'GET',
-        headers: { 'Authorization' : 'Bearer ' + tokenResponse.data.access_token}
-      })
-      .then (response => {   
-        // API response from server 
-        console.log(response)
+      axios(
+        `https://api.spotify.com/v1/search?q=%20genre:%22indie%22&type=artist&offset=${randomOffset}&limit=3`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + tokenResponse.data.access_token,
+          },
+        }
+      ).then((response) => {
+        // API response from server
+        console.log(response);
         console.log(response.data.artists.items[0].images[1].url);
 
         // SET ARTIST NAME
@@ -121,93 +126,88 @@ export default function Album() {
 
         // SET ARTIST IMAGE
         // setArtistImage1(response.data.artists.items[1].images.url);
-
-        })
       });
-      
+    });
+  }, [spotify.ClientId, spotify.ClientSecret]);
 
-  }, [spotify.ClientId, spotify.ClientSecret]); 
-
-
-//------------------------------------------
-// RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
-  function getRandomNumber (min, max) {
+  //------------------------------------------
+  // RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
+  function getRandomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
   }
 
-//------------------------------------------
-// GET ATTRIBUTES BASED ON SIGN
+  //------------------------------------------
+  // GET ATTRIBUTES BASED ON SIGN
 
   function getGenres(sign) {
-    const genres = []
+    const genres = [];
 
-    switch(sign){
+    switch (sign) {
       case "Aries":
         // Upbeat, fiery, dancing (no slow songs)
-        genres = ["dance", "hip-hop", "house", "reggaeton"]
+        genres = ["dance", "hip-hop", "house", "reggaeton"];
         break;
 
-        // Earth sign, raw, emotional music, organic, classic sound
+      // Earth sign, raw, emotional music, organic, classic sound
       case "Taurus":
-        genres = ["folk", "singer-songwriter", "guitar"]
+        genres = ["folk", "singer-songwriter", "guitar"];
         break;
 
-        // Air sign, lyrical music, techno, electronic
+      // Air sign, lyrical music, techno, electronic
       case "Gemini":
-        genres = ["electronic", "trance", "hip-hop", "detroit-techno"]
+        genres = ["electronic", "trance", "hip-hop", "detroit-techno"];
         break;
 
-        // Water, thought-provoking, creative, relatable music
+      // Water, thought-provoking, creative, relatable music
       case "Cancer":
-        genres = ["singer-songwriter", "alt-rock", "folk", "indie"]
+        genres = ["singer-songwriter", "alt-rock", "folk", "indie"];
         break;
 
-        // Fiery, anthemic, ego-boosting, conquering, empowering
+      // Fiery, anthemic, ego-boosting, conquering, empowering
       case "Leo":
-        genres = ["pop", "alternative", "deep-house", "reggaeton"]
+        genres = ["pop", "alternative", "deep-house", "reggaeton"];
         break;
 
-        // Earth sign, sensual, ambient, soulful, jazzy, upbeat
+      // Earth sign, sensual, ambient, soulful, jazzy, upbeat
       case "Virgo":
-        genres = ["jazz", "ambient", "happy"]
+        genres = ["jazz", "ambient", "happy"];
         break;
 
-        // Love songs, romantic, positive (no sad tunes)
+      // Love songs, romantic, positive (no sad tunes)
       case "Libra":
-        genres = ["country", "r-n-b", "power-pop"]
+        genres = ["country", "r-n-b", "power-pop"];
         break;
 
-        // Water sign, intense, sensual, romance, dark, emotional
+      // Water sign, intense, sensual, romance, dark, emotional
       case "Scorpio":
-        genres = ["soul", "goth", "r-n-b", "trip-hop"]
+        genres = ["soul", "goth", "r-n-b", "trip-hop"];
         break;
 
-        // Fiery, high-energy, dance, pop, active
+      // Fiery, high-energy, dance, pop, active
       case "Sagittarius":
-        genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"]
+        genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"];
         break;
 
-        // Sophisticated, intelligent, jazz, lyrical, soulful
+      // Sophisticated, intelligent, jazz, lyrical, soulful
       case "Capricorn":
-        genres = ["jazz", "soul", "idm", "classical", "rock"]
+        genres = ["jazz", "soul", "idm", "classical", "rock"];
         break;
 
-        // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
+      // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
       case "Aquarius":
-        genres = ["chill", "songwriter", "minimal-techno", "indie-pop"]
+        genres = ["chill", "songwriter", "minimal-techno", "indie-pop"];
         break;
 
-        // Water sign, trippy, melancholy, nostalgic, emotive,
+      // Water sign, trippy, melancholy, nostalgic, emotive,
       case "Pisces":
-        genres = ["psych-rock", "synth-pop", "emo", ]
+        genres = ["psych-rock", "synth-pop", "emo"];
         break;
     }
   }
-// ----- END OF SWITCH CASE STATEMENT ----- 
-//------------------------------------------
-
+  // ----- END OF SWITCH CASE STATEMENT -----
+  //------------------------------------------
 
   const cards = [1, 2, 3];
 
@@ -215,6 +215,13 @@ export default function Album() {
 
   return (
     <React.Fragment>
+      <button
+        onClick={() => {
+          console.log(userData);
+        }}
+      >
+        CLICK
+      </button>
       <CssBaseline />
       <main>
         {/* Horoscope Section */}
@@ -248,16 +255,14 @@ export default function Album() {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image= "https://i.scdn.co/image/05c77688da89cc4cc2388bf98dd374ef5cbd4797"
+                    image="https://i.scdn.co/image/05c77688da89cc4cc2388bf98dd374ef5cbd4797"
                     title="Image title"
                   />
                   <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                       <b>{artistName1}</b>
                     </Typography>
-                    <Typography>
-                      Generes: 
-                    </Typography>
+                    <Typography>Generes:</Typography>
                   </CardContent>
                   <CardActions style={{ justifyContent: "center" }}>
                     <Button
