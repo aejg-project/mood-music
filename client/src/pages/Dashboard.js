@@ -73,19 +73,17 @@ export default function Album() {
 
   // SET ARTIST NAME (1-3)
   const [ artistName1, setArtistName1 ] = useState('');
-  const [ artistName2, setArtistName2 ] = useState('');
-  const [ artistName3, setArtistName3 ] = useState('');
+  // const [ artistName2, setArtistName2 ] = useState('');
+  // const [ artistName3, setArtistName3 ] = useState('');
 
   // SET ARTIST IMAGE (1-3)
-  const [ artistImage1, setArtistImage1 ] = useState('');
-  const [ artistImage2, setArtistImage2 ] = useState('');
-  const [ artistImage3, setArtistImage3 ] = useState('');
+  // const [ artistImage1, setArtistImage1 ] = useState('');
+  // const [ artistImage2, setArtistImage2 ] = useState('');
+  // const [ artistImage3, setArtistImage3 ] = useState('');
 
   const spotify = Credentials();
 
   const [_, setToken] = useState('');  
-  const [genres] = useState({selectedGenre: ''});
-
 
   useEffect(() => {
     axios.get('http://localhost:3001/getHoroscope?zodiac=leo')
@@ -122,7 +120,7 @@ export default function Album() {
         setArtistName1(response.data.artists.items[0].name);
 
         // SET ARTIST IMAGE
-        setArtistImage1(response.data.artists.items[1].images.url);
+        // setArtistImage1(response.data.artists.items[1].images.url);
 
         })
       });
@@ -140,6 +138,76 @@ export default function Album() {
   }
 
 //------------------------------------------
+// GET ATTRIBUTES BASED ON SIGN
+
+  function getGenres(sign) {
+    const genres = []
+
+    switch(sign){
+      case "Aries":
+        // Upbeat, fiery, dancing (no slow songs)
+        genres = ["", "", ""]
+        break;
+
+        // Earth sign, raw, emotional music, organic, classic sound
+      case "Taurus":
+        genres = ["", "", ""]
+        break;
+
+        // Air sign, lyrical music, techno, electronic
+      case "Gemini":
+        genres = ["", "", ""]
+        break;
+
+        // Water, thought-provoking, creative, relatable music
+      case "Cancer":
+        genres = ["", "", ""]
+        break;
+
+        // Fiery, anthemic, ego-boosting, conquering, empowering
+      case "Leo":
+        genres = ["", "", ""]
+        break;
+
+        // Earth sign, sensual, ambient, soulful, jazzy, upbeat
+      case "Virgo":
+        genres = ["", "", ""]
+        break;
+
+        // Love songs, romantic, positive (no sad tunes)
+      case "Libra":
+        genres = ["", "", ""]
+        break;
+
+        // Water sign, intense, sensual, romance, dark, emotional
+      case "Scorpio":
+        genres = ["", "", ""]
+        break;
+
+        // Fiery, high-energy, dance, pop, active
+      case "Sagittarius":
+        genres = ["", "", ""]
+        break;
+
+        // Sophisticated, intelligent, jazz, lyrical, soulful
+      case "Capricorn":
+        genres = ["", "", ""]
+        break;
+
+        // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
+      case "Aquarius":
+        genres = ["", "", ""]
+        break;
+
+        // Water sign, trippy, melancholy, nostalgic, emotive,
+      case "Pisces":
+        genres = ["", "", ""]
+        break;
+    }
+  }
+// ----- END OF SWITCH CASE STATEMENT ----- 
+//------------------------------------------
+
 
   const cards = [1, 2, 3];
 
