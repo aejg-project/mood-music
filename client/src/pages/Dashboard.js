@@ -84,9 +84,12 @@ export default function Album() {
 
   const [_, setToken] = useState("");
 
+  // GETS USER DATA
   const { data: userData } = useQuery(GET_USER);
+
   useEffect(() => {
-    // console.log(userData);
+    console.log(userData);
+
     axios
       .get("http://localhost:3001/getHoroscope?zodiac=leo")
       .then((response) => {
@@ -218,7 +221,7 @@ export default function Album() {
 
       <button
         onClick={() => {
-          console.log(userData);
+         console.log(userData);
         }}
       >
         CLICK
