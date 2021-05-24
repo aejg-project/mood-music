@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 // import AppBar from "@material-ui/core/AppBar";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 // import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 // import Link from "@material-ui/core/Link";
-// import MusicNote from "@material-ui/icons/MusicNote";
+import MusicNote from "@material-ui/icons/MusicNote";
 import axios from "axios";
 import { Credentials } from "../Credentials";
 import { useQuery } from "@apollo/react-hooks";
@@ -61,21 +61,25 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
   artistName: {
-    color: "#471867",
     // background: "#f57848",
+    color: "#471867",
     textAlign: 'center',
     fontWeight: "bold",
+  },
+  button: {
+    color: "#f57848",
+    backgroundColor: "#471867"
   }
 }));
 
 export default function Album() {
   // SET HOROSCOPE
-  const [horoscope, setHoroscope] = useState("");
+  const [horoscope, setHoroscope] = useState('');
 
   // SET ARTIST NAME (1-3)
-  const [artistName1, setArtistName1] = useState("");
-  const [artistName2, setArtistName2] = useState("");
-  const [artistName3, setArtistName3] = useState("");
+  const [artistName1, setArtistName1] = useState('');
+  const [artistName2, setArtistName2] = useState('');
+  const [artistName3, setArtistName3] = useState('');
 
   // SET ARTIST IMAGE (1-3)
   const [artistImage1, setArtistImage1] = useState('');
@@ -83,9 +87,14 @@ export default function Album() {
   const [artistImage3, setArtistImage3] = useState('');
 
   // SET ARTIST GENRE (1-3)
-  const [artistGenre1, setArtistGenre1] = useState("");
+  const [artistGenre1, setArtistGenre1] = useState('');
   const [artistGenre2, setArtistGenre2] = useState('');
   const [artistGenre3, setArtistGenre3] = useState('');
+
+  // SET ARTUST LINK TO SPOTIFY (1-3)
+  const [ spotifyLink1, setSpotifyLink1 ] = useState('');
+  const [ spotifyLink2, setSpotifyLink2 ] = useState('');
+  const [ spotifyLink3, setSpotifyLink3 ] = useState('');
 
   const spotify = Credentials();
 
@@ -157,6 +166,11 @@ export default function Album() {
         setArtistGenre2(genre2.replace("[", '').replace("]", ''));
         const genre3 = JSON.stringify(response.data.artists.items[2].genres);
         setArtistGenre3(genre3.replace("[", '').replace("]", ''));
+
+        // SET ARTIST LINK TO SPOTIFY
+        setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
+        setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
+        setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
 
       });
     });
@@ -313,6 +327,16 @@ export default function Album() {
                       <b>Genre(s): </b>{artistGenre1}
                     </Typography>
                   </CardContent>
+                  <CardActions style={{ justifyContent: "center" }}>
+                    <Button className={classes.button}
+                      startIcon={<MusicNote />}
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                    >
+                      <a href={spotifyLink1}>Listen on Spotify</a>
+                    </Button>{" "}
+                  </CardActions>
                 </Card>
 
                 {/* Card #2 */}
@@ -330,6 +354,16 @@ export default function Album() {
                       <b>Genre(s): </b>{artistGenre2}
                     </Typography>
                   </CardContent>
+                  <CardActions style={{ justifyContent: "center" }}>
+                    <Button className={classes.button}
+                      startIcon={<MusicNote />}
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                    >
+                      <a href={spotifyLink2}>Listen on Spotify</a>
+                    </Button>{" "}
+                  </CardActions>
                 </Card>
 
                 {/* Card #3 */}
@@ -347,6 +381,16 @@ export default function Album() {
                       <b>Genre(s): </b>{artistGenre3}
                     </Typography>
                   </CardContent>
+                  <CardActions style={{ justifyContent: "center" }}>
+                    <Button className={classes.button}
+                      startIcon={<MusicNote />}
+                      variant="outlined"
+                      size="small"
+                      color="primary"
+                    >
+                      <a href={spotifyLink3}>Listen on Spotify</a>
+                    </Button>{" "}
+                  </CardActions>
                 </Card>
               </div>
             </Grid>
