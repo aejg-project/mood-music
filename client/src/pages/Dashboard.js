@@ -227,13 +227,13 @@ export default function Album() {
   return (
     <React.Fragment>
 
-      <button
+      {/* <button
         onClick={() => {
          console.log(userData);
         }}
       >
         CLICK
-      </button>
+      </button> */}
       
       <CssBaseline />
       <main>
