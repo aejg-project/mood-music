@@ -18,6 +18,7 @@ import axios from "axios";
 import { Credentials } from "../Credentials";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_USER } from "../utils/queries";
+import Horoscope from "../components/Horoscope";
 
 function Copyright() {
   return (
@@ -92,7 +93,7 @@ export default function Album() {
 
   useEffect(() => {
     setZodiacSign(userData?.me?.zodiacSign);
-    // console.log(zodiacSign);
+    console.log(zodiacSign);
 
     if(zodiacSign){
       console.log(userData?.me?.zodiacSign)
@@ -234,11 +235,11 @@ export default function Album() {
       >
         CLICK
       </button>
-      
+
       <CssBaseline />
       <main>
         {/* Horoscope Section */}
-        <div className={classes.heroContent}>
+        {/* <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
               component="h1"
@@ -258,9 +259,11 @@ export default function Album() {
               {horoscope}
             </Typography>
           </Container>
-        </div>
+        </div> */}
         {/* Horoscope ends here */}
-
+        <>
+        {Horoscope}
+        </>
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {cards.map((card) => (
