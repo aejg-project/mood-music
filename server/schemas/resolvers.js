@@ -11,13 +11,13 @@ const resolvers = {
           _id: context.user._id
         })
         .select('-__v -password')
-        .populate('dailyHoroscope')
-        .populate('dailySong');
+        // .populate('dailyHoroscope')
+        // .populate('dailySong');
 
         return userData;
       }
 
-      throw new AuthenticationError('Please log in to get your songs!');
+      throw new AuthenticationError('Please log in to allow us to curate!');
     },
   },
   Mutation: {

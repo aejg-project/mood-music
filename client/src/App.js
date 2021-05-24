@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
-import './index.css'
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
+import "./index.css";
 
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 // import Content from './components/Content';
 // import Horoscope from './components/Horoscope';
 // import Playlist from './components/Playlist';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
 import HomePage from "./pages/HomePage";
 
 const client = new ApolloClient({
-  request: operation => {
-    const token = localStorage.getItem('id_token');
+  request: (operation) => {
+    const token = localStorage.getItem("id_token");
 
     operation.setContext({
       headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
+        authorization: token ? `Bearer ${token}` : "",
+      },
     });
   },
-  uri: '/graphql'
+  uri: "/graphql",
 });
 
 function App() {
-  const [currentBook, setCurrentBook] = useState('');
+  const [currentSong, setCurrentSong] = useState("");
+  const [currentHoroscope, setCurrentHoroscope] = useState("");
 
   return (
     <ApolloProvider client={client}>
@@ -44,11 +45,13 @@ function App() {
 
               <Route
                 exact
-                path="/book/:bookId"
+                path="/dashboard/:userId"
                 component={() => (
                   <Dashboard
-                    setCurrentBook={setCurrentBook}
-                    currentBook={currentBook}
+                    setCurrentSong={setCurrentSong}
+                    currentSong={currentSong}
+                    setCurrentHoroscope={setCurrentHoroscope}
+                    currentHoroscope={currentHoroscope}
                   />
                 )}
               />
@@ -59,7 +62,6 @@ function App() {
         <Footer />
       </Router>
     </ApolloProvider>
-    
   );
 }
 
