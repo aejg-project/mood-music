@@ -101,26 +101,30 @@ export default function Album() {
   const [_, setToken] = useState("");
 
   // // GETS USER DATA
-  const { data: userData } = useQuery(GET_USER);
+  const { data: userData, loading } = useQuery(GET_USER);
 
   // // GETS ZODIAC SIGN
   const [zodiacSign, setZodiacSign] = useState(userData);
 
+  useEffect(() => {
+    if(!loading){
+      setZodiacSign(userData?.me?.zodiacSign);
+    }
+  }, [ userData, loading ])
 
   useEffect(() => {
-    setZodiacSign(userData?.me?.zodiacSign);
-    // console.log(zodiacSign);
+    console.log(zodiacSign);
 
-    // if (zodiacSign) {
-    //   console.log(userData?.me?.zodiacSign)
-    // }
-
-    axios
-      .get("http://localhost:3001/getHoroscope?zodiac=gemini")
+    if (!zodiacSign) {
+      return;
+    } else{
+      axios
+      .get("/getHoroscope?zodiac=" + zodiacSign)
       .then((response) => {
         console.log(response.data);
         setHoroscope(response.data);
       });
+    }
   }, [zodiacSign, horoscope]);
 
   useEffect(() => {
@@ -274,13 +278,13 @@ export default function Album() {
   return (
     <React.Fragment>
 
-      <button
+      {/* <button
         onClick={() => {
           console.log(userData);
         }}
       >
         CLICK
-      </button>
+      </button> */}
 
       <CssBaseline />
       <main>
@@ -302,7 +306,7 @@ export default function Album() {
               color="textSecondary"
               paragraph
             >
-              {horoscope}
+              {loading?"loading...":horoscope}
             </Typography>
           </Container>
         </div>
