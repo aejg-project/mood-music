@@ -128,65 +128,65 @@ export default function Album() {
       .then((response) => {
         console.log(response.data);
         setHoroscope(response.data);
+      })
+      .then(() => {
+        axios("https://accounts.spotify.com/api/token", {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization:
+              "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
+          },
+          data: "grant_type=client_credentials",
+          method: "POST",
+        }).then((tokenResponse) => {
+          setToken(tokenResponse.data.access_token);
+          const randomOffset = getRandomNumber(20, 100);
+          const genreList = getGenres(zodiacSign);
+          console.log(genreList);
+          const randomGenreNumber = getRandomGenre(0, 2);
+          const genre = genreList[randomGenreNumber];
+    
+          axios(
+            `https://api.spotify.com/v1/search?q=%20genre:%22${genre}%22&type=artist&offset=${randomOffset}&limit=3`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: "Bearer " + tokenResponse.data.access_token,
+              },
+            }
+          ).then((response) => {
+            // API response from server
+            console.log(response);
+            console.log(response.data.artists.items[0].images[1].url);
+    
+            // SET ARTIST NAME
+            setArtistName1(response.data.artists.items[0].name);
+            setArtistName2(response.data.artists.items[1].name);
+            setArtistName3(response.data.artists.items[2].name);
+    
+            // SET ARTIST IMAGE
+            setArtistImage1(response.data.artists.items[0].images[1].url);
+            setArtistImage2(response.data.artists.items[1].images[1].url);
+            setArtistImage3(response.data.artists.items[2].images[1].url);
+    
+            // SET ARTIST GENRE
+            const genre1 = JSON.stringify(response.data.artists.items[0].genres);
+            setArtistGenre1(genre1.replace("[", '').replace("]", ''));
+            const genre2 = JSON.stringify(response.data.artists.items[1].genres);
+            setArtistGenre2(genre2.replace("[", '').replace("]", ''));
+            const genre3 = JSON.stringify(response.data.artists.items[2].genres);
+            setArtistGenre3(genre3.replace("[", '').replace("]", ''));
+    
+            // SET ARTIST LINK TO SPOTIFY
+            setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
+            setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
+            setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
+          });
+        });
       });
     }
-  }, [zodiacSign, horoscope]);
+  }, [zodiacSign, horoscope, spotify.ClientId, spotify.ClientSecret]);
 
-  useEffect(() => {
-    axios("https://accounts.spotify.com/api/token", {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization:
-          "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
-      },
-      data: "grant_type=client_credentials",
-      method: "POST",
-    }).then((tokenResponse) => {
-      setToken(tokenResponse.data.access_token);
-      const randomOffset = getRandomNumber(20, 100);
-
-      const genre = getGenres(zodiacSign);
-      console.log(genre);
-
-      axios(
-        `https://api.spotify.com/v1/search?q=%20genre:%22country%22&type=artist&offset=${randomOffset}&limit=3`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + tokenResponse.data.access_token,
-          },
-        }
-      ).then((response) => {
-        // API response from server
-        console.log(response);
-        console.log(response.data.artists.items[0].images[1].url);
-
-        // SET ARTIST NAME
-        setArtistName1(response.data.artists.items[0].name);
-        setArtistName2(response.data.artists.items[1].name);
-        setArtistName3(response.data.artists.items[2].name);
-
-        // SET ARTIST IMAGE
-        setArtistImage1(response.data.artists.items[0].images[1].url);
-        setArtistImage2(response.data.artists.items[1].images[1].url);
-        setArtistImage3(response.data.artists.items[2].images[1].url);
-
-        // SET ARTIST GENRE
-        const genre1 = JSON.stringify(response.data.artists.items[0].genres);
-        setArtistGenre1(genre1.replace("[", '').replace("]", ''));
-        const genre2 = JSON.stringify(response.data.artists.items[1].genres);
-        setArtistGenre2(genre2.replace("[", '').replace("]", ''));
-        const genre3 = JSON.stringify(response.data.artists.items[2].genres);
-        setArtistGenre3(genre3.replace("[", '').replace("]", ''));
-
-        // SET ARTIST LINK TO SPOTIFY
-        setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
-        setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
-        setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
-
-      });
-    });
-  }, [spotify.ClientId, spotify.ClientSecret]);
 
   //------------------------------------------
   // RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
@@ -197,6 +197,14 @@ export default function Album() {
   }
   //------------------------------------------
 
+    //------------------------------------------
+  // RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
+  function getRandomGenre(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+  //------------------------------------------
 
   // GET ATTRIBUTES BASED ON SIGN
 
