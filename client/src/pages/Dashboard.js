@@ -26,10 +26,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: "#F1926E",
-    padding: theme.spacing(8, 0, 6),
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    padding: theme.spacing(4, 0, 6),
     borderRadius: 10,
   },
+  
   heroButtons: {
     marginTop: theme.spacing(4),
   },
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
+    height: '75vh',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -46,12 +47,14 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
   cardRow: {
+    height: '60vh',
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    // height: '100vh',
+    paddingTop: "40vh", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -63,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   artistName: {
     // background: "#f57848",
     color: "#471867",
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: "bold",
   },
   button: {
@@ -101,26 +104,30 @@ export default function Album() {
   const [_, setToken] = useState("");
 
   // // GETS USER DATA
-  const { data: userData } = useQuery(GET_USER);
+  const { data: userData, loading } = useQuery(GET_USER);
 
   // // GETS ZODIAC SIGN
   const [zodiacSign, setZodiacSign] = useState(userData);
 
+  useEffect(() => {
+    if(!loading){
+      setZodiacSign(userData?.me?.zodiacSign);
+    }
+  }, [ userData, loading ])
 
   useEffect(() => {
-    setZodiacSign(userData?.me?.zodiacSign);
-    // console.log(zodiacSign);
+    console.log(zodiacSign);
 
-    // if (zodiacSign) {
-    //   console.log(userData?.me?.zodiacSign)
-    // }
-
-    axios
-      .get("http://localhost:3001/getHoroscope?zodiac=gemini")
+    if (!zodiacSign) {
+      return;
+    } else{
+      axios
+      .get("/getHoroscope?zodiac=" + zodiacSign)
       .then((response) => {
         console.log(response.data);
         setHoroscope(response.data);
       });
+    }
   }, [zodiacSign, horoscope]);
 
   useEffect(() => {
@@ -274,13 +281,13 @@ export default function Album() {
   return (
     <React.Fragment>
 
-      <button
+      {/* <button
         onClick={() => {
           console.log(userData);
         }}
       >
         CLICK
-      </button>
+      </button> */}
 
       <CssBaseline />
       <main>
@@ -290,6 +297,7 @@ export default function Album() {
             <Typography
               component="h1"
               variant="h2"
+              fontWeight="fontWeightBold"
               align="center"
               color="textPrimary"
               gutterBottom
@@ -297,12 +305,13 @@ export default function Album() {
               Today's horoscope:
             </Typography>
             <Typography
-              variant="h5"
-              align="center"
+              variant="body1"
+              align="justify"
+              display="block"
               color="textSecondary"
               paragraph
             >
-              {horoscope}
+              {loading?"loading...":horoscope}
             </Typography>
           </Container>
         </div>

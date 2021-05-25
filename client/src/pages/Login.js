@@ -74,6 +74,7 @@ export default function SignInSide() {
       });
 
       Auth.login(data.login.token);
+      document.location.replace('/dashboard/');
     } catch (e) {
       console.error(e);
     }

@@ -9,7 +9,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import StarOutline from "@material-ui/icons/StarOutline";
 import Select from "@material-ui/core/Select";
-import MenuItem from '@material-ui/core/MenuItem';
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 
@@ -109,12 +108,14 @@ export default function SignInSide() {
   // submit the input
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(inputState);
 
     try {
       const { data } = await signUp({
         variables: { ...inputState },
       });
       Auth.login(data.signUp.token);
+      document.location.replace('/dashboard/');
     } catch (e) {
       console.error(e);
     }
@@ -165,9 +166,9 @@ export default function SignInSide() {
 
               <Grid item xs={12}>
                 <Select
-                  id="sign"
+                  id="zodiacSign"
                   label="Astrological Sign"
-                  name="sign"
+                  name="zodiacSign"
                   value={inputState.optionState}
                   onChange={inputChange}
                   variant="outlined"
@@ -176,24 +177,18 @@ export default function SignInSide() {
                   input={<BootstrapInput />}
 
                 >
-                  <MenuItem value="Aquarius">
-                    Aquarius (Jan. 20 - Febr. 18)
-                  </MenuItem>
-                  <MenuItem value="Pisces">Pisces (Feb. 19-Mar. 20)</MenuItem>
-                  <MenuItem value="Aries">Aries (Mar. 21 - Apr. 19)</MenuItem>
-                  <MenuItem value="Taurus">Taurus (Apr. 20 - May 20)</MenuItem>
-                  <MenuItem value="Gemini">Gemini (May 21 - Jun. 20)</MenuItem>
-                  <MenuItem value="Cancer">Cancer (Jun. 21 - Jul. 22)</MenuItem>
-                  <MenuItem value="Leo">Leo (Jul. 23 - Aug. 22)</MenuItem>
-                  <MenuItem value="Virgo">Virgo (Aug. 23 - Sep. 22)</MenuItem>
-                  <MenuItem value="Libra">Libra (Sep. 23 - Oct. 22)</MenuItem>
-                  <MenuItem value="Sorpio">Sorpio (Oct. 23 - Nov. 21)</MenuItem>
-                  <MenuItem value="Sagittarius">
-                    Sagittarius (Nov. 22 - Dec. 21)
-                  </MenuItem>
-                  <MenuItem value="Capricorn">
-                    Capricorn (Dec. 22 - Jan. 19)
-                  </MenuItem>
+                  <option value="aquarius">Aquarius (Jan. 20 - Febr. 18)</option>
+                  <option value="pisces">Pisces (Feb. 19-Mar. 20)</option>
+                  <option value="aries">Aries (Mar. 21 - Apr. 19)</option>
+                  <option value="taurus">Taurus (Apr. 20 - May 20)</option>
+                  <option value="gemini">Gemini (May 21 - Jun. 20)</option>
+                  <option value="cancer">Cancer (Jun. 21 - Jul. 22)</option>
+                  <option value="leo">Leo (Jul. 23 - Aug. 22)</option>
+                  <option value="virgo">Virgo (Aug. 23 - Sep. 22)</option>
+                  <option value="libra">Libra (Sep. 23 - Oct. 22)</option>
+                  <option value="scorpio">Scorpio (Oct. 23 - Nov. 21)</option>
+                  <option value="sagittarius">Sagittarius (Nov. 22 - Dec. 21)</option>
+                  <option value="capricorn">Capricorn (Dec. 22 - Jan. 19)</option>
                 </Select>
               </Grid>
 

@@ -31,10 +31,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
-
 app.use("/", router);
 
 router.route("/getUsers").get(function (_, res) {
@@ -62,6 +58,10 @@ router.route("/getSong").get(async function ({ query }, res) {
   // Make call to get user and pull song, update axios request below and plug-in the song
   const response = await axios.get('https://accounts.spotify.com/authorize');
   res.send(response.data);
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
 
