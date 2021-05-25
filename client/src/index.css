@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&family=Raleway&display=swap");
+
 :root {
-  --primary: #471A66;
+  --primary: #471a66;
   --secondary: #ff935e;
   --tertiary: #7c2ae8;
   --light: #fafafa;
@@ -21,7 +23,7 @@ body {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
   font-weight: 400;
   line-height: 1.5;
   font-size: 16px;
@@ -34,7 +36,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   font-weight: 500;
   margin: 5px 0;
   line-height: 1.25;
@@ -69,7 +71,6 @@ p {
   margin-top: 0;
 }
 
-
 header {
   background: var(--primary);
 }
@@ -79,8 +80,8 @@ header {
 } */
 
 a {
-  padding: .75rem 1rem;
-  border-radius: .5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
   border: none;
   cursor: pointer;
   margin: 0 1px;
@@ -90,14 +91,14 @@ a {
 }
 
 a:hover {
-  opacity: .8;
+  opacity: 0.8;
   text-decoration: underline;
   font-size: larger;
 }
 
 button[disabled] {
   cursor: default;
-  opacity: .8;
+  opacity: 0.8;
 }
 
 img {
@@ -123,7 +124,7 @@ input {
 
 input:focus {
   border: 1px solid var(--secondary);
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, .5);
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5);
 }
 
 .container {
@@ -206,3 +207,16 @@ input:focus {
   margin-right: auto;
 }
 
+.heroContent {
+  background: #23074d; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #cc5333,
+    #23074d
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #cc5333,
+    #23074d
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#F1926E",
     padding: theme.spacing(8, 0, 6),
     borderRadius: 10,
+    "&:hover": {
+      backgroundColor: "#471A66",
+    }
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -297,8 +300,9 @@ export default function Album() {
               Today's horoscope:
             </Typography>
             <Typography
-              variant="h5"
-              align="center"
+              variant="body1"
+              align="justify"
+              display="block"
               color="textSecondary"
               paragraph
             >
