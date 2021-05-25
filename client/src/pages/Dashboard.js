@@ -126,62 +126,65 @@ export default function Album() {
       .then((response) => {
         console.log(response.data);
         setHoroscope(response.data);
+      })
+      .then(() => {
+        axios("https://accounts.spotify.com/api/token", {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization:
+              "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
+          },
+          data: "grant_type=client_credentials",
+          method: "POST",
+        }).then((tokenResponse) => {
+          setToken(tokenResponse.data.access_token);
+          const randomOffset = getRandomNumber(20, 100);
+          const genreList = getGenres(zodiacSign);
+          console.log(genreList);
+          const randomGenreNumber = getRandomGenre(0, 2);
+          const genre = genreList[randomGenreNumber];
+    
+          axios(
+            `https://api.spotify.com/v1/search?q=%20genre:%22${genre}%22&type=artist&offset=${randomOffset}&limit=3`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: "Bearer " + tokenResponse.data.access_token,
+              },
+            }
+          ).then((response) => {
+            // API response from server
+            console.log(response);
+            console.log(response.data.artists.items[0].images[1].url);
+    
+            // SET ARTIST NAME
+            setArtistName1(response.data.artists.items[0].name);
+            setArtistName2(response.data.artists.items[1].name);
+            setArtistName3(response.data.artists.items[2].name);
+    
+            // SET ARTIST IMAGE
+            setArtistImage1(response.data.artists.items[0].images[1].url);
+            setArtistImage2(response.data.artists.items[1].images[1].url);
+            setArtistImage3(response.data.artists.items[2].images[1].url);
+    
+            // SET ARTIST GENRE
+            const genre1 = JSON.stringify(response.data.artists.items[0].genres);
+            setArtistGenre1(genre1.replace("[", '').replace("]", ''));
+            const genre2 = JSON.stringify(response.data.artists.items[1].genres);
+            setArtistGenre2(genre2.replace("[", '').replace("]", ''));
+            const genre3 = JSON.stringify(response.data.artists.items[2].genres);
+            setArtistGenre3(genre3.replace("[", '').replace("]", ''));
+    
+            // SET ARTIST LINK TO SPOTIFY
+            setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
+            setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
+            setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
+          });
+        });
       });
     }
-  }, [zodiacSign, horoscope]);
+  }, [zodiacSign, horoscope, spotify.ClientId, spotify.ClientSecret]);
 
-  useEffect(() => {
-    axios("https://accounts.spotify.com/api/token", {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization:
-          "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
-      },
-      data: "grant_type=client_credentials",
-      method: "POST",
-    }).then((tokenResponse) => {
-      setToken(tokenResponse.data.access_token);
-      const randomOffset = getRandomNumber(20, 100);
-
-      axios(
-        `https://api.spotify.com/v1/search?q=%20genre:%22country%22&type=artist&offset=${randomOffset}&limit=3`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + tokenResponse.data.access_token,
-          },
-        }
-      ).then((response) => {
-        // API response from server
-        console.log(response);
-        console.log(response.data.artists.items[0].images[1].url);
-
-        // SET ARTIST NAME
-        setArtistName1(response.data.artists.items[0].name);
-        setArtistName2(response.data.artists.items[1].name);
-        setArtistName3(response.data.artists.items[2].name);
-
-        // SET ARTIST IMAGE
-        setArtistImage1(response.data.artists.items[0].images[1].url);
-        setArtistImage2(response.data.artists.items[1].images[1].url);
-        setArtistImage3(response.data.artists.items[2].images[1].url);
-
-        // SET ARTIST GENRE
-        const genre1 = JSON.stringify(response.data.artists.items[0].genres);
-        setArtistGenre1(genre1.replace("[", '').replace("]", ''));
-        const genre2 = JSON.stringify(response.data.artists.items[1].genres);
-        setArtistGenre2(genre2.replace("[", '').replace("]", ''));
-        const genre3 = JSON.stringify(response.data.artists.items[2].genres);
-        setArtistGenre3(genre3.replace("[", '').replace("]", ''));
-
-        // SET ARTIST LINK TO SPOTIFY
-        setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
-        setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
-        setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
-
-      });
-    });
-  }, [spotify.ClientId, spotify.ClientSecret]);
 
   //------------------------------------------
   // RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
@@ -192,86 +195,97 @@ export default function Album() {
   }
   //------------------------------------------
 
+    //------------------------------------------
+  // RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
+  function getRandomGenre(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+  //------------------------------------------
 
   // GET ATTRIBUTES BASED ON SIGN
 
-  // function getGenres(sign) {
-  //   const genres = [];
+  function getGenres(sign) {
+    let genres = [];
+    const zodiac = sign;
+    console.log(zodiac);
 
-  //   switch (sign) {
-  //     case "Aries":
-  //       // Upbeat, fiery, dancing (no slow songs)
-  //       genres = ["dance", "hip-hop", "house", "reggaeton"];
-  //       console.log(" selected");
-  //       break;
+    switch (sign) {
+      case "aries":
+        // Upbeat, fiery, dancing (no slow songs)
+        genres = ["dance", "hip-hop", "house", "reggaeton"];
+        console.log(" selected");
+        break;
 
-  //     // Earth sign, raw, emotional music, organic, classic sound
-  //     case "Taurus":
-  //       genres = ["folk", "singer-songwriter", "guitar"];
-  //       console.log("Taurus selected");
-  //       break;
+      // Earth sign, raw, emotional music, organic, classic sound
+      case "taurus":
+        genres = ["folk", "singer-songwriter", "guitar"];
+        console.log("Taurus selected");
+        break;
 
-  //     // Air sign, lyrical music, techno, electronic
-  //     case "Gemini":
-  //       genres = ["electronic", "trance", "hip-hop", "detroit-techno"];
-  //       console.log("Gemini selected");
-  //       break;
+      // Air sign, lyrical music, techno, electronic
+      case "gemini":
+        genres = ["electronic", "trance", "hip-hop", "detroit-techno"];
+        console.log("Gemini selected");
+        break;
 
-  //     // Water, thought-provoking, creative, relatable music
-  //     case "Cancer":
-  //       genres = ["singer-songwriter", "alt-rock", "folk", "indie"];
-  //       console.log("Cancer selected");
-  //       break;
+      // Water, thought-provoking, creative, relatable music
+      case "cancer":
+        genres = ["singer-songwriter", "alt-rock", "folk", "indie"];
+        console.log("Cancer selected");
+        break;
 
-  //     // Fiery, anthemic, ego-boosting, conquering, empowering
-  //     case "Leo":
-  //       genres = ["pop", "alternative", "deep-house", "reggaeton"];
-  //       console.log("Leo selected");
-  //       break;
+      // Fiery, anthemic, ego-boosting, conquering, empowering
+      case "leo":
+        genres = ["pop", "alternative", "deep-house", "reggaeton"];
+        console.log("Leo selected");
+        break;
 
-  //     // Earth sign, sensual, ambient, soulful, jazzy, upbeat
-  //     case "Virgo":
-  //       genres = ["jazz", "ambient", "happy"];
-  //       console.log("Virgo selected");
-  //       break;
+      // Earth sign, sensual, ambient, soulful, jazzy, upbeat
+      case "virgo":
+        genres = ["jazz", "ambient", "happy"];
+        console.log("Virgo selected");
+        break;
 
-  //     // Love songs, romantic, positive (no sad tunes)
-  //     case "Libra":
-  //       genres = ["country", "r-n-b", "power-pop"];
-  //       console.log("Libra selected");
-  //       break;
+      // Love songs, romantic, positive (no sad tunes)
+      case "libra":
+        genres = ["country", "r-n-b", "power-pop"];
+        console.log("Libra selected");
+        break;
 
-  //     // Water sign, intense, sensual, romance, dark, emotional
-  //     case "Scorpio":
-  //       genres = ["soul", "goth", "r-n-b", "trip-hop"];
-  //       console.log("Scorpio selected");
-  //       break;
+      // Water sign, intense, sensual, romance, dark, emotional
+      case "scorpio":
+        genres = ["soul", "goth", "r-n-b", "trip-hop"];
+        console.log("Scorpio selected");
+        break;
 
-  //     // Fiery, high-energy, dance, pop, active
-  //     case "Sagittarius":
-  //       genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"];
-  //       console.log("Sagittarius selected");
-  //       break;
+      // Fiery, high-energy, dance, pop, active
+      case "sagittarius":
+        genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"];
+        console.log("Sagittarius selected");
+        break;
 
-  //     // Sophisticated, intelligent, jazz, lyrical, soulful
-  //     case "Capricorn":
-  //       genres = ["jazz", "soul", "idm", "classical", "rock"];
-  //       console.log("Capricorn selected");
-  //       break;
+      // Sophisticated, intelligent, jazz, lyrical, soulful
+      case "capricorn":
+        genres = ["jazz", "soul", "idm", "classical", "rock"];
+        console.log("Capricorn selected");
+        break;
 
-  //     // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
-  //     case "Aquarius":
-  //       genres = ["chill", "songwriter", "minimal-techno", "indie-pop"];
-  //       console.log("Aquarius selected");
-  //       break;
+      // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
+      case "aquarius":
+        genres = ["chill", "songwriter", "minimal-techno", "indie-pop"];
+        console.log("Aquarius selected");
+        break;
 
-  //     // Water sign, trippy, melancholy, nostalgic, emotive,
-  //     case "Pisces":
-  //       genres = ["psych-rock", "synth-pop", "emo"];
-  //       console.log("Pisces selected");
-  //       break;
-  //   }
-  // }
+      // Water sign, trippy, melancholy, nostalgic, emotive,
+      case "pisces":
+        genres = ["psych-rock", "synth-pop", "emo"];
+        console.log("Pisces selected");
+        break;
+    }
+    return genres;
+  }
 
   // ----- END OF SWITCH CASE STATEMENT -----
   //------------------------------------------
