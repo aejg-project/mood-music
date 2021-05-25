@@ -103,15 +103,6 @@ export default function Album() {
   // // GETS ZODIAC SIGN
   const [zodiacSign, setZodiacSign] = useState(userData);
 
-  // GETS USER'S EMAIL
-  const [email, setEmail] = useState(userData);
-  
-  useEffect(() => {
-    if(!loading){
-      setEmail(userData?.me?.email);
-    }
-  }, [ userData, loading ])
-
   useEffect(() => {
     if(!loading){
       setZodiacSign(userData?.me?.zodiacSign);

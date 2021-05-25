@@ -13,17 +13,15 @@ import { useQuery } from "@apollo/react-hooks";
 const Header = () => {
 
   // // GETS USER DATA
-const { data: userData, loading } = useQuery(GET_USER);
+  const { data: userData, loading } = useQuery(GET_USER);
 
-
-// GETS USER'S EMAIL
-const [email, setEmail] = React.useState(userData);
-
-React.useEffect(() => {
-  if(!loading){
-    setEmail(userData?.me?.email);
-  }
-}, [ userData, loading ])
+  // GETS USER'S EMAIL
+  const [email, setEmail] = React.useState(userData);
+  React.useEffect(() => {
+    if(!loading){
+      setEmail(userData?.me?.email);
+    }
+  }, [ userData, loading ])
 
   const logout = (event) => {
     event.preventDefault();
@@ -33,7 +31,7 @@ React.useEffect(() => {
     <header className="bg-light mb-4 py-2 flex-row align-center">
       <div className="mmlogo justify-center align-center">
         <Link to="/" className="mmlogo container flex-row justify-center align-center">
-          <img src="./mm-logo.png" />
+          <img alt="mood music logo" src="/mm-logo.png"/>
         </Link>
         <Container>
           <Navbar expand="true" className="justify-content-center" bg="light" variant="light">
@@ -42,10 +40,7 @@ React.useEffect(() => {
                 {Auth.loggedIn() ? (
                   <Nav.Item > 
                     <a href="/login" onClick={logout}>Logout</a>
-                    <Navbar.Text>
-                    <a href="/dashboard"></a>
-                      Signed in as: <a href="#">{email}</a>
-                    </Navbar.Text>
+                    <Navbar.Text>Signed in as: {email}</Navbar.Text>
                   </Nav.Item>
                 ) : (
                   <>
