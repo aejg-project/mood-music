@@ -241,7 +241,7 @@ export default function Album() {
             </Typography>
             <Typography
               variant="body1"
-              align="center"
+              align="justify"
               display="block"
               color="textSecondary"
               paragraph
