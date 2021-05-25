@@ -1,0 +1,25 @@
+{
+  "name": "mood-music",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
+    "axios": "^0.21.1",
+    "dotenv": "^10.0.0",
+    "if-env": "^1.0.4",
+    "jwt-decode": "^3.1.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
