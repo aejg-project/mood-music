@@ -30,13 +30,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     margin: "1rem",
   },
-
   cardRow: {
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-
   cardMedia: {
     paddingTop: '56.25%', // 16:9
   },

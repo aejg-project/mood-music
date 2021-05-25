@@ -129,7 +129,7 @@ export default function SignInSide() {
                   id="sign"
                   label="Astrological Sign"
                   name="sign"
-                  value={inputState.zodiacSign}
+                  value={inputState.optionState}
                   onChange={inputChange}
                 >
                   <option value="Aquarius">
