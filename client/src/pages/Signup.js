@@ -144,7 +144,7 @@ export default function SignInSide() {
                   <option value="leo">Leo (Jul. 23 - Aug. 22)</option>
                   <option value="virgo">Virgo (Aug. 23 - Sep. 22)</option>
                   <option value="libra">Libra (Sep. 23 - Oct. 22)</option>
-                  <option value="sorpio">Sorpio (Oct. 23 - Nov. 21)</option>
+                  <option value="scorpio">Scorpio (Oct. 23 - Nov. 21)</option>
                   <option value="sagittarius">
                     Sagittarius (Nov. 22 - Dec. 21)
                   </option>
