@@ -1,11 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
-import { Container, NavDropdown } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Auth from "../utils/auth";
+import { GET_USER } from "../utils/queries";
+import { useQuery } from "@apollo/react-hooks";
+
+
+
 
 const Header = () => {
+
+  // // GETS USER DATA
+const { data: userData, loading } = useQuery(GET_USER);
+
+
+// GETS USER'S EMAIL
+const [email, setEmail] = React.useState(userData);
+
+React.useEffect(() => {
+  if(!loading){
+    setEmail(userData?.me?.email);
+  }
+}, [ userData, loading ])
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -24,8 +43,8 @@ const Header = () => {
                   <Nav.Item > 
                     <a href="/login" onClick={logout}>Logout</a>
                     <Navbar.Text>
-                    <a href="/dashboard">DashBoard</a>
-                      {/* Signed in as: <a href="#">Mr. Ed</a> */}
+                    <a href="/dashboard"></a>
+                      Signed in as: <a href="#">{email}</a>
                     </Navbar.Text>
                   </Nav.Item>
                 ) : (
