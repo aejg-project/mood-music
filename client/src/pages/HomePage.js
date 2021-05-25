@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: "#B350A5",
+    background: 'linear-gradient(117deg, #b350a5 3%, #FE6B8B 99%)',
     padding: theme.spacing(8, 0, 6),
     borderRadius: 10,
   },
@@ -58,7 +58,7 @@ export default function Album() {
       <main>
         {/* Horoscope Section */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
+          <Container className="lightFont" maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Welcome!
             </Typography>
