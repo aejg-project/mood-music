@@ -70,6 +70,7 @@ export default function SignInSide() {
   // submit the input
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(inputState);
 
     try {
       const { data } = await signUp({
@@ -126,28 +127,28 @@ export default function SignInSide() {
 
               <Grid item xs={12}>
                 <select
-                  id="sign"
+                  id="zodiacSign"
                   label="Astrological Sign"
-                  name="sign"
+                  name="zodiacSign"
                   value={inputState.optionState}
                   onChange={inputChange}
                 >
-                  <option value="Aquarius">
+                  <option value="aquarius">
                     Aquarius (Jan. 20 - Febr. 18)
                   </option>
-                  <option value="Pisces">Pisces (Feb. 19-Mar. 20)</option>
-                  <option value="Aries">Aries (Mar. 21 - Apr. 19)</option>
-                  <option value="Taurus">Taurus (Apr. 20 - May 20)</option>
-                  <option value="Gemini">Gemini (May 21 - Jun. 20)</option>
-                  <option value="Cancer">Cancer (Jun. 21 - Jul. 22)</option>
-                  <option value="Leo">Leo (Jul. 23 - Aug. 22)</option>
-                  <option value="Virgo">Virgo (Aug. 23 - Sep. 22)</option>
-                  <option value="Libra">Libra (Sep. 23 - Oct. 22)</option>
-                  <option value="Sorpio">Sorpio (Oct. 23 - Nov. 21)</option>
-                  <option value="Sagittarius">
+                  <option value="pisces">Pisces (Feb. 19-Mar. 20)</option>
+                  <option value="aries">Aries (Mar. 21 - Apr. 19)</option>
+                  <option value="taurus">Taurus (Apr. 20 - May 20)</option>
+                  <option value="gemini">Gemini (May 21 - Jun. 20)</option>
+                  <option value="cancer">Cancer (Jun. 21 - Jul. 22)</option>
+                  <option value="leo">Leo (Jul. 23 - Aug. 22)</option>
+                  <option value="virgo">Virgo (Aug. 23 - Sep. 22)</option>
+                  <option value="libra">Libra (Sep. 23 - Oct. 22)</option>
+                  <option value="sorpio">Sorpio (Oct. 23 - Nov. 21)</option>
+                  <option value="sagittarius">
                     Sagittarius (Nov. 22 - Dec. 21)
                   </option>
-                  <option value="Capricorn">
+                  <option value="capricorn">
                     Capricorn (Dec. 22 - Jan. 19)
                   </option>
                 </select>
