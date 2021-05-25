@@ -56,6 +56,14 @@ router.route("/getHoroscope").get(async function ({ query }, res) {
   res.send(response.data.horoscope);
 });
 
+// Function to get date. Should be able to chain to above call
+router.route("/getHoroscopeDate").get(async function ({ query }, res) {
+
+  // Make call to get user and pull zodic sign, update axios request below and plug-in the sign
+  const response = await axios.get('https://ohmanda.com/api/horoscope/' + query.zodiac);
+  res.send(response.data.date);
+});
+
 // Function to get daily song
 router.route("/getSong").get(async function ({ query }, res) {
 

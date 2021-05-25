@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   // SET HOROSCOPE
   const [horoscope, setHoroscope] = useState("");
+  const [date, setDate] = useState("");
 
   // SET ARTIST NAME (1-3)
   const [artistName1, setArtistName1] = useState("");
@@ -108,7 +109,25 @@ export default function Album() {
       console.log(response.data);
       setHoroscope(response.data);
     }); 
+
   }, [ zodiacSign, horoscope]);
+
+  // Solely responsible for getting date. Would like to string to above call getting horoscope
+  useEffect(() => {
+    setZodiacSign(userData?.me?.zodiacSign);
+
+    if(zodiacSign){
+      console.log(userData?.me?.zodiacSign)
+    }
+    
+    axios
+    .get("http://localhost:3001/getHoroscopeDate?zodiac=leo")
+    .then((response) => {
+      console.log(response.data);
+      setDate(response.data);
+    }); 
+
+  }, [ zodiacSign, date]);
 
   useEffect(() => {
     axios("https://accounts.spotify.com/api/token", {
@@ -242,7 +261,7 @@ export default function Album() {
       <CssBaseline />
       <main>
         {/* Horoscope Section */}
-        {/* <div className={classes.heroContent}>
+        <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography
               component="h1"
@@ -251,7 +270,7 @@ export default function Album() {
               color="textPrimary"
               gutterBottom
             >
-              Today's horoscope:
+              {date} horoscope:
             </Typography>
             <Typography
               variant="body1"
@@ -263,11 +282,9 @@ export default function Album() {
               {horoscope}
             </Typography>
           </Container>
-        </div> */}
+        </div>
         {/* Horoscope ends here */}
-        <>
-        {Horoscope}
-        </>
+        
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
             {cards.map((card) => (
