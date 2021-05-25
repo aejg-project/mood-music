@@ -7,8 +7,11 @@ import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import StarOutline from "@material-ui/icons/StarOutline";
+import Select from "@material-ui/core/Select";
+import MenuItem from '@material-ui/core/MenuItem';
+import InputBase from '@material-ui/core/InputBase';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -46,6 +49,42 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase);
+
 
 export default function SignInSide() {
   const classes = useStyles();
@@ -125,32 +164,37 @@ export default function SignInSide() {
               </Grid>
 
               <Grid item xs={12}>
-                <select
+                <Select
                   id="sign"
                   label="Astrological Sign"
                   name="sign"
                   value={inputState.optionState}
                   onChange={inputChange}
+                  variant="outlined"
+                  fullWidth
+                  required
+                  input={<BootstrapInput />}
+
                 >
-                  <option value="Aquarius">
+                  <MenuItem value="Aquarius">
                     Aquarius (Jan. 20 - Febr. 18)
-                  </option>
-                  <option value="Pisces">Pisces (Feb. 19-Mar. 20)</option>
-                  <option value="Aries">Aries (Mar. 21 - Apr. 19)</option>
-                  <option value="Taurus">Taurus (Apr. 20 - May 20)</option>
-                  <option value="Gemini">Gemini (May 21 - Jun. 20)</option>
-                  <option value="Cancer">Cancer (Jun. 21 - Jul. 22)</option>
-                  <option value="Leo">Leo (Jul. 23 - Aug. 22)</option>
-                  <option value="Virgo">Virgo (Aug. 23 - Sep. 22)</option>
-                  <option value="Libra">Libra (Sep. 23 - Oct. 22)</option>
-                  <option value="Sorpio">Sorpio (Oct. 23 - Nov. 21)</option>
-                  <option value="Sagittarius">
+                  </MenuItem>
+                  <MenuItem value="Pisces">Pisces (Feb. 19-Mar. 20)</MenuItem>
+                  <MenuItem value="Aries">Aries (Mar. 21 - Apr. 19)</MenuItem>
+                  <MenuItem value="Taurus">Taurus (Apr. 20 - May 20)</MenuItem>
+                  <MenuItem value="Gemini">Gemini (May 21 - Jun. 20)</MenuItem>
+                  <MenuItem value="Cancer">Cancer (Jun. 21 - Jul. 22)</MenuItem>
+                  <MenuItem value="Leo">Leo (Jul. 23 - Aug. 22)</MenuItem>
+                  <MenuItem value="Virgo">Virgo (Aug. 23 - Sep. 22)</MenuItem>
+                  <MenuItem value="Libra">Libra (Sep. 23 - Oct. 22)</MenuItem>
+                  <MenuItem value="Sorpio">Sorpio (Oct. 23 - Nov. 21)</MenuItem>
+                  <MenuItem value="Sagittarius">
                     Sagittarius (Nov. 22 - Dec. 21)
-                  </option>
-                  <option value="Capricorn">
+                  </MenuItem>
+                  <MenuItem value="Capricorn">
                     Capricorn (Dec. 22 - Jan. 19)
-                  </option>
-                </select>
+                  </MenuItem>
+                </Select>
               </Grid>
 
               <Grid item xs={12}>
