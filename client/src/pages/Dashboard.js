@@ -26,13 +26,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: "#F1926E",
-    padding: theme.spacing(8, 0, 6),
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    padding: theme.spacing(4, 0, 6),
     borderRadius: 10,
-    "&:hover": {
-      backgroundColor: "#471A66",
-    }
   },
+  
   heroButtons: {
     marginTop: theme.spacing(4),
   },
@@ -41,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
+    height: '75vh',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -49,12 +47,14 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
   cardRow: {
+    height: '60vh',
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    // height: '100vh',
+    paddingTop: "40vh", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   artistName: {
     // background: "#f57848",
     color: "#471867",
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: "bold",
   },
   button: {
@@ -297,6 +297,7 @@ export default function Album() {
             <Typography
               component="h1"
               variant="h2"
+              fontWeight="fontWeightBold"
               align="center"
               color="textPrimary"
               gutterBottom
