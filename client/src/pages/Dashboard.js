@@ -94,10 +94,12 @@ export default function Album() {
   const [artistGenre2, setArtistGenre2] = useState('');
   const [artistGenre3, setArtistGenre3] = useState('');
 
-  // SET ARTUST LINK TO SPOTIFY (1-3)
+  // SET ARTIST LINK TO SPOTIFY (1-3)
   const [ spotifyLink1, setSpotifyLink1 ] = useState('');
   const [ spotifyLink2, setSpotifyLink2 ] = useState('');
   const [ spotifyLink3, setSpotifyLink3 ] = useState('');
+
+
 
   const spotify = Credentials();
 
@@ -142,6 +144,9 @@ export default function Album() {
     }).then((tokenResponse) => {
       setToken(tokenResponse.data.access_token);
       const randomOffset = getRandomNumber(20, 100);
+
+      const genre = getGenres(zodiacSign);
+      console.log(genre);
 
       axios(
         `https://api.spotify.com/v1/search?q=%20genre:%22country%22&type=artist&offset=${randomOffset}&limit=3`,
@@ -195,83 +200,86 @@ export default function Album() {
 
   // GET ATTRIBUTES BASED ON SIGN
 
-  // function getGenres(sign) {
-  //   const genres = [];
+  function getGenres(sign) {
+    let genres = [];
+    const zodiac = sign;
+    console.log(zodiac);
 
-  //   switch (sign) {
-  //     case "Aries":
-  //       // Upbeat, fiery, dancing (no slow songs)
-  //       genres = ["dance", "hip-hop", "house", "reggaeton"];
-  //       console.log(" selected");
-  //       break;
+    switch (sign) {
+      case "aries":
+        // Upbeat, fiery, dancing (no slow songs)
+        genres = ["dance", "hip-hop", "house", "reggaeton"];
+        console.log("Aries selected");
+        break;
 
-  //     // Earth sign, raw, emotional music, organic, classic sound
-  //     case "Taurus":
-  //       genres = ["folk", "singer-songwriter", "guitar"];
-  //       console.log("Taurus selected");
-  //       break;
+      // Earth sign, raw, emotional music, organic, classic sound
+      case "taurus":
+        genres = ["folk", "singer-songwriter", "guitar"];
+        console.log("Taurus selected");
+        break;
 
-  //     // Air sign, lyrical music, techno, electronic
-  //     case "Gemini":
-  //       genres = ["electronic", "trance", "hip-hop", "detroit-techno"];
-  //       console.log("Gemini selected");
-  //       break;
+      // Air sign, lyrical music, techno, electronic
+      case "gemini":
+        genres = ["electronic", "trance", "hip-hop", "detroit-techno"];
+        console.log("Gemini selected");
+        break;
 
-  //     // Water, thought-provoking, creative, relatable music
-  //     case "Cancer":
-  //       genres = ["singer-songwriter", "alt-rock", "folk", "indie"];
-  //       console.log("Cancer selected");
-  //       break;
+      // Water, thought-provoking, creative, relatable music
+      case "cancer":
+        genres = ["singer-songwriter", "alt-rock", "folk", "indie"];
+        console.log("Cancer selected");
+        break;
 
-  //     // Fiery, anthemic, ego-boosting, conquering, empowering
-  //     case "Leo":
-  //       genres = ["pop", "alternative", "deep-house", "reggaeton"];
-  //       console.log("Leo selected");
-  //       break;
+      // Fiery, anthemic, ego-boosting, conquering, empowering
+      case "leo":
+        genres = ["pop", "alternative", "deep-house", "reggaeton"];
+        console.log("Leo selected");
+        break;
 
-  //     // Earth sign, sensual, ambient, soulful, jazzy, upbeat
-  //     case "Virgo":
-  //       genres = ["jazz", "ambient", "happy"];
-  //       console.log("Virgo selected");
-  //       break;
+      // Earth sign, sensual, ambient, soulful, jazzy, upbeat
+      case "virgo":
+        genres = ["jazz", "ambient", "happy"];
+        console.log("Virgo selected");
+        break;
 
-  //     // Love songs, romantic, positive (no sad tunes)
-  //     case "Libra":
-  //       genres = ["country", "r-n-b", "power-pop"];
-  //       console.log("Libra selected");
-  //       break;
+      // Love songs, romantic, positive (no sad tunes)
+      case "libra":
+        genres = ["country", "r-n-b", "power-pop"];
+        console.log("Libra selected");
+        break;
 
-  //     // Water sign, intense, sensual, romance, dark, emotional
-  //     case "Scorpio":
-  //       genres = ["soul", "goth", "r-n-b", "trip-hop"];
-  //       console.log("Scorpio selected");
-  //       break;
+      // Water sign, intense, sensual, romance, dark, emotional
+      case "scorpio":
+        genres = ["soul", "goth", "r-n-b", "trip-hop"];
+        console.log("Scorpio selected");
+        break;
 
-  //     // Fiery, high-energy, dance, pop, active
-  //     case "Sagittarius":
-  //       genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"];
-  //       console.log("Sagittarius selected");
-  //       break;
+      // Fiery, high-energy, dance, pop, active
+      case "sagittarius":
+        genres = ["pop", "dance", "idm", "reggaeton", "honky-tonk"];
+        console.log("Sagittarius selected");
+        break;
 
-  //     // Sophisticated, intelligent, jazz, lyrical, soulful
-  //     case "Capricorn":
-  //       genres = ["jazz", "soul", "idm", "classical", "rock"];
-  //       console.log("Capricorn selected");
-  //       break;
+      // Sophisticated, intelligent, jazz, lyrical, soulful
+      case "capricorn":
+        genres = ["jazz", "soul", "idm", "classical", "rock"];
+        console.log("Capricorn selected");
+        break;
 
-  //     // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
-  //     case "Aquarius":
-  //       genres = ["chill", "songwriter", "minimal-techno", "indie-pop"];
-  //       console.log("Aquarius selected");
-  //       break;
+      // Deep thinker, chilled-out, mellow, thought-provoking, electronic, experimental
+      case "aquarius":
+        genres = ["chill", "songwriter", "minimal-techno", "indie-pop"];
+        console.log("Aquarius selected");
+        break;
 
-  //     // Water sign, trippy, melancholy, nostalgic, emotive,
-  //     case "Pisces":
-  //       genres = ["psych-rock", "synth-pop", "emo"];
-  //       console.log("Pisces selected");
-  //       break;
-  //   }
-  // }
+      // Water sign, trippy, melancholy, nostalgic, emotive,
+      case "pisces":
+        genres = ["psych-rock", "synth-pop", "emo"];
+        console.log("Pisces selected");
+        break;
+    }
+    return genres;
+  }
 
   // ----- END OF SWITCH CASE STATEMENT -----
   //------------------------------------------
