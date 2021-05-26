@@ -351,7 +351,7 @@ export default function Album() {
                       size="small"
                       color="primary"
                     >
-                      <a href={spotifyLink1}>Listen on Spotify</a>
+                      <a href={spotifyLink1} target='_blank'>Listen on Spotify</a>
                     </Button>{" "}
                   </CardActions>
                 </Card>
@@ -378,7 +378,7 @@ export default function Album() {
                       size="small"
                       color="primary"
                     >
-                      <a href={spotifyLink2}>Listen on Spotify</a>
+                      <a href={spotifyLink2} target='_blank'>Listen on Spotify</a>
                     </Button>{" "}
                   </CardActions>
                 </Card>
@@ -405,7 +405,7 @@ export default function Album() {
                       size="small"
                       color="primary"
                     >
-                      <a href={spotifyLink3}>Listen on Spotify</a>
+                      <a href={spotifyLink3} target='_blank'>Listen on Spotify</a>
                     </Button>{" "}
                   </CardActions>
                 </Card>
