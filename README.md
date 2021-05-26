@@ -11,7 +11,7 @@
 
 ## Description:
 
-Mood Music is an application which enables users to couple their love of astrology and music. It was built to cater to an individual who is interested in receiving their daily horoscope, has a desire to hear new and exciting music associated with their zodiac sign, and to provide this in one, easy to navigate application. The core functionality of the application is minimal, providing the user what they what and nothing that they don't need. The stying of the application is meant to be bold, welcoming, and simple, allowing the user to interact with the application interface in a meaningful way while reducing potential distraction or navigational confusion. The Spotify API ensures that users are being exposed to a wide array of high quality artists that align with their zodiac traits, with the ultimate goal of providing a means to unearth a hidden gem.
+Mood Music is an application which enables users to couple their love of astrology and music. It was built to cater to an individual who is interested in receiving their daily horoscope, has a desire to hear new and exciting music associated with their zodiac sign, and to provide this in one, easy to navigate application. The core functionality of the application is minimal, providing the user what they want and nothing that they don't need. The styling of the application is meant to be bold, welcoming, and simple, allowing the user to interact with the application interface in a meaningful way while reducing potential distraction or navigational confusion. The Spotify API ensures that users are being exposed to a wide array of high quality artists that align with their zodiac traits, with the ultimate goal of providing a means to unearth a hidden gem.
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
@@ -26,6 +26,8 @@ Mood Music is an application which enables users to couple their love of astrolo
 ## Live App:
 
 > https://mewd-mewsic.herokuapp.com/
+
+![gif](./media/Mood-Music-App.gif)
 
 ## Usage:
 
