@@ -7,8 +7,10 @@ import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import StarOutline from "@material-ui/icons/StarOutline";
+import Select from "@material-ui/core/Select";
+import InputBase from '@material-ui/core/InputBase';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
@@ -47,6 +49,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 16,
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    },
+  },
+}))(InputBase);
+
+
 export default function SignInSide() {
   const classes = useStyles();
 
@@ -77,6 +115,7 @@ export default function SignInSide() {
         variables: { ...inputState },
       });
       Auth.login(data.signUp.token);
+      document.location.replace('/dashboard/');
     } catch (e) {
       console.error(e);
     }
@@ -126,16 +165,19 @@ export default function SignInSide() {
               </Grid>
 
               <Grid item xs={12}>
-                <select
+                <Select
                   id="zodiacSign"
                   label="Astrological Sign"
                   name="zodiacSign"
                   value={inputState.optionState}
                   onChange={inputChange}
+                  variant="outlined"
+                  fullWidth
+                  required
+                  input={<BootstrapInput />}
+
                 >
-                  <option value="aquarius">
-                    Aquarius (Jan. 20 - Febr. 18)
-                  </option>
+                  <option value="aquarius">Aquarius (Jan. 20 - Febr. 18)</option>
                   <option value="pisces">Pisces (Feb. 19-Mar. 20)</option>
                   <option value="aries">Aries (Mar. 21 - Apr. 19)</option>
                   <option value="taurus">Taurus (Apr. 20 - May 20)</option>
@@ -145,13 +187,9 @@ export default function SignInSide() {
                   <option value="virgo">Virgo (Aug. 23 - Sep. 22)</option>
                   <option value="libra">Libra (Sep. 23 - Oct. 22)</option>
                   <option value="scorpio">Scorpio (Oct. 23 - Nov. 21)</option>
-                  <option value="sagittarius">
-                    Sagittarius (Nov. 22 - Dec. 21)
-                  </option>
-                  <option value="capricorn">
-                    Capricorn (Dec. 22 - Jan. 19)
-                  </option>
-                </select>
+                  <option value="sagittarius">Sagittarius (Nov. 22 - Dec. 21)</option>
+                  <option value="capricorn">Capricorn (Dec. 22 - Jan. 19)</option>
+                </Select>
               </Grid>
 
               <Grid item xs={12}>

@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from "react";
-// import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-// import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-// import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import Link from "@material-ui/core/Link";
 import MusicNote from "@material-ui/icons/MusicNote";
 import axios from "axios";
 import { Credentials } from "../Credentials";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_USER } from "../utils/queries";
-// import { blue } from "@material-ui/core/colors";
-
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
   heroContent: {
-    backgroundColor: "#F1926E",
-    padding: theme.spacing(8, 0, 6),
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    padding: theme.spacing(4, 0, 6),
     borderRadius: 10,
-    "&:hover": {
-      backgroundColor: "#471A66",
-    }
   },
+  
   heroButtons: {
     marginTop: theme.spacing(4),
   },
@@ -41,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '100%',
+    height: '75vh',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -49,12 +41,14 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
   cardRow: {
+    height: '60vh',
     display: "flex",
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
   cardMedia: {
-    paddingTop: "56.25%", // 16:9
+    // height: '100vh',
+    paddingTop: "40vh", // 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -66,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   artistName: {
     // background: "#f57848",
     color: "#471867",
-    textAlign: 'center',
+    textAlign: 'left',
     fontWeight: "bold",
   },
   button: {
@@ -313,6 +307,7 @@ export default function Album() {
             <Typography
               component="h1"
               variant="h2"
+              fontWeight="fontWeightBold"
               align="center"
               color="textPrimary"
               gutterBottom
