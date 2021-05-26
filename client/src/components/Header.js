@@ -1,3 +1,4 @@
+// IMPORTS FOR EXTERNAL FILES
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,9 +8,6 @@ import Auth from "../utils/auth";
 import { GET_USER } from "../utils/queries";
 import { useQuery } from "@apollo/react-hooks";
 
-
-
-
 const Header = () => {
 
   // // GETS USER DATA
@@ -18,10 +16,10 @@ const Header = () => {
   // GETS USER'S EMAIL
   const [email, setEmail] = React.useState(userData);
   React.useEffect(() => {
-    if(!loading){
+    if (!loading) {
       setEmail(userData?.me?.email);
     }
-  }, [ userData, loading ])
+  }, [userData, loading])
 
   const logout = (event) => {
     event.preventDefault();
@@ -31,14 +29,14 @@ const Header = () => {
     <header className="bg-light mb-4 py-2 flex-row align-center">
       <div className="mmlogo justify-center align-center">
         <Link to="/" className="mmlogo container flex-row justify-center align-center">
-          <img alt="mood music logo" src="/mm-logo.png"/>
+          <img alt="mood music logo" src="/mm-logo.png" />
         </Link>
         <Container>
           <Navbar expand="true" className="justify-content-center" bg="light" variant="light">
-            <Nav  defaultActiveKey="/home">
+            <Nav defaultActiveKey="/home">
               <Nav.Item>
                 {Auth.loggedIn() ? (
-                  <Nav.Item > 
+                  <Nav.Item >
                     <a href="/login" onClick={logout}>Logout</a>
                     <Navbar.Text>Signed in as: {email}</Navbar.Text>
                   </Nav.Item>
@@ -57,5 +55,5 @@ const Header = () => {
     </header>
   );
 };
-
+// EXPORTS THE HEADER.JS FILE
 export default Header;

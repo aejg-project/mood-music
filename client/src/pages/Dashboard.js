@@ -1,3 +1,4 @@
+// IMPORTS FOR EXTERNAL FILES
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -15,6 +16,8 @@ import { Credentials } from "../Credentials";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_USER } from "../utils/queries";
 
+
+// MAIN STYLES FOR JSX
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4, 0, 6),
     borderRadius: 10,
   },
-  
+
   heroButtons: {
     marginTop: theme.spacing(4),
   },
@@ -47,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around',
   },
   cardMedia: {
-    // height: '100vh',
     paddingTop: "40vh", // 16:9
   },
   cardContent: {
@@ -58,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(6),
   },
   artistName: {
-    // background: "#f57848",
     color: "#471867",
     textAlign: 'left',
     fontWeight: "bold",
@@ -89,9 +90,9 @@ export default function Album() {
   const [artistGenre3, setArtistGenre3] = useState('');
 
   // SET ARTUST LINK TO SPOTIFY (1-3)
-  const [ spotifyLink1, setSpotifyLink1 ] = useState('');
-  const [ spotifyLink2, setSpotifyLink2 ] = useState('');
-  const [ spotifyLink3, setSpotifyLink3 ] = useState('');
+  const [spotifyLink1, setSpotifyLink1] = useState('');
+  const [spotifyLink2, setSpotifyLink2] = useState('');
+  const [spotifyLink3, setSpotifyLink3] = useState('');
 
   const spotify = Credentials();
 
@@ -104,78 +105,80 @@ export default function Album() {
   const [zodiacSign, setZodiacSign] = useState(userData);
 
   useEffect(() => {
-    if(!loading){
+    if (!loading) {
       setZodiacSign(userData?.me?.zodiacSign);
     }
-  }, [ userData, loading ])
+  }, [userData, loading])
 
   useEffect(() => {
-    console.log(zodiacSign);
+    // console.log(zodiacSign);
 
     if (!zodiacSign) {
       return;
-    } else{
+    } else {
       axios
-      .get("/getHoroscope?zodiac=" + zodiacSign)
-      .then((response) => {
-        console.log(response.data);
-        setHoroscope(response.data);
-      })
-      .then(() => {
-        axios("https://accounts.spotify.com/api/token", {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization:
-              "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
-          },
-          data: "grant_type=client_credentials",
-          method: "POST",
-        }).then((tokenResponse) => {
-          setToken(tokenResponse.data.access_token);
-          const randomOffset = getRandomNumber(20, 100);
-          const genreList = getGenres(zodiacSign);
-          console.log(genreList);
-          const randomGenreNumber = getRandomGenre(0, 2);
-          const genre = genreList[randomGenreNumber];
-    
-          axios(
-            `https://api.spotify.com/v1/search?q=%20genre:%22${genre}%22&type=artist&offset=${randomOffset}&limit=3`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: "Bearer " + tokenResponse.data.access_token,
-              },
-            }
-          ).then((response) => {
-            // API response from server
-            console.log(response);
-            console.log(response.data.artists.items[0].images[1].url);
-    
-            // SET ARTIST NAME
-            setArtistName1(response.data.artists.items[0].name);
-            setArtistName2(response.data.artists.items[1].name);
-            setArtistName3(response.data.artists.items[2].name);
-    
-            // SET ARTIST IMAGE
-            setArtistImage1(response.data.artists.items[0].images[1].url);
-            setArtistImage2(response.data.artists.items[1].images[1].url);
-            setArtistImage3(response.data.artists.items[2].images[1].url);
-    
-            // SET ARTIST GENRE
-            const genre1 = JSON.stringify(response.data.artists.items[0].genres);
-            setArtistGenre1(genre1.replace("[", '').replace("]", ''));
-            const genre2 = JSON.stringify(response.data.artists.items[1].genres);
-            setArtistGenre2(genre2.replace("[", '').replace("]", ''));
-            const genre3 = JSON.stringify(response.data.artists.items[2].genres);
-            setArtistGenre3(genre3.replace("[", '').replace("]", ''));
-    
-            // SET ARTIST LINK TO SPOTIFY
-            setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
-            setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
-            setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
+        .get("/getHoroscope?zodiac=" + zodiacSign)
+        .then((response) => {
+          // console.log(response.data);
+          setHoroscope(response.data);
+        })
+        .then(() => {
+          axios("https://accounts.spotify.com/api/token", {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              Authorization:
+                "Basic " + btoa(spotify.ClientId + ":" + spotify.ClientSecret),
+            },
+            data: "grant_type=client_credentials",
+            method: "POST",
+          }).then((tokenResponse) => {
+            setToken(tokenResponse.data.access_token);
+            const randomOffset = getRandomNumber(20, 100);
+            const genreList = getGenres(zodiacSign);
+            // console.log(genreList);
+            const randomGenreNumber = getRandomGenre(0, 2);
+            const genre = genreList[randomGenreNumber];
+
+            axios(
+              `https://api.spotify.com/v1/search?q=%20genre:%22${genre}%22&type=artist&offset=${randomOffset}&limit=3`,
+              {
+                method: "GET",
+                headers: {
+                  Authorization: "Bearer " + tokenResponse.data.access_token,
+                },
+              }
+            ).then((response) => {
+              // API response from server
+
+              // SET ARTIST NAME
+              setArtistName1(response.data.artists.items[0].name);
+              setArtistName2(response.data.artists.items[1].name);
+              setArtistName3(response.data.artists.items[2].name);
+
+              // SET ARTIST IMAGE
+              setArtistImage1(response.data.artists.items[0].images[1].url);
+              setArtistImage2(response.data.artists.items[1].images[1].url);
+              setArtistImage3(response.data.artists.items[2].images[1].url);
+
+              // SET ARTIST GENRE 1
+              const genre1 = JSON.stringify(response.data.artists.items[0].genres);
+              setArtistGenre1(genre1.replace("[", '').replace("]", ''));
+
+              // SET ARTIST GENRE 2
+              const genre2 = JSON.stringify(response.data.artists.items[1].genres);
+              setArtistGenre2(genre2.replace("[", '').replace("]", ''));
+
+              // SET ARTIST GENRE 3
+              const genre3 = JSON.stringify(response.data.artists.items[2].genres);
+              setArtistGenre3(genre3.replace("[", '').replace("]", ''));
+
+              // SET ARTIST LINK TO SPOTIFY
+              setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
+              setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
+              setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
+            });
           });
         });
-      });
     }
   }, [zodiacSign, horoscope, spotify.ClientId, spotify.ClientSecret]);
 
@@ -189,8 +192,8 @@ export default function Album() {
   }
   //------------------------------------------
 
-    //------------------------------------------
-  // RANDOM NUMBER FUCNTION USED FOR SONG OFFSET
+  //------------------------------------------
+  // RANDOM NUMBER FUCNTION USED FOR GENRE OFFSET
   function getRandomGenre(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -198,12 +201,10 @@ export default function Album() {
   }
   //------------------------------------------
 
-  // GET ATTRIBUTES BASED ON SIGN
+  // GET ATTRIBUTES BASED ON SIGN (SWITCH CASE)
 
   function getGenres(sign) {
     let genres = [];
-    const zodiac = sign;
-    console.log(zodiac);
 
     switch (sign) {
       case "aries":
@@ -288,15 +289,6 @@ export default function Album() {
 
   return (
     <React.Fragment>
-
-      {/* <button
-        onClick={() => {
-          console.log(userData);
-        }}
-      >
-        CLICK
-      </button> */}
-
       <CssBaseline />
       <main>
         {/* Horoscope Section */}
@@ -319,7 +311,7 @@ export default function Album() {
               color="textSecondary"
               paragraph
             >
-              {loading?"loading...":horoscope}
+              {loading ? "loading..." : horoscope}
             </Typography>
           </Container>
         </div>
@@ -329,7 +321,7 @@ export default function Album() {
           <Grid container>
             <Grid >
               <div className={classes.cardRow}>
-                {/* Card #1 */}
+                {/*--------- Card #1 ---------*/}
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -356,7 +348,7 @@ export default function Album() {
                   </CardActions>
                 </Card>
 
-                {/* Card #2 */}
+                {/*--------- Card #2 ---------*/}
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -383,7 +375,7 @@ export default function Album() {
                   </CardActions>
                 </Card>
 
-                {/* Card #3 */}
+                {/*--------- Card #3 ---------*/}
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}

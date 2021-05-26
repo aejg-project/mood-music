@@ -1,3 +1,4 @@
+// IMPORTS FOR EXTERNAL FILES
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -10,11 +11,11 @@ import Grid from "@material-ui/core/Grid";
 import StarOutline from "@material-ui/icons/StarOutline";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
 import { useMutation } from "@apollo/react-hooks";
 import { LOGIN } from "../utils/mutations";
 import Auth from "../utils/auth";
 
+// MAIN STYLES FOR JSX
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
@@ -50,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignInSide() {
   const classes = useStyles();
-
   const [inputState, setInputState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN);
 

@@ -1,3 +1,4 @@
+// IMPORTS FOR EXTERNAL FILES
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -11,11 +12,11 @@ import StarOutline from "@material-ui/icons/StarOutline";
 import Select from "@material-ui/core/Select";
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/react-hooks";
 
+// MAIN STYLES FOR JSX
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
@@ -95,7 +96,7 @@ export default function SignInSide() {
     zodiacSign: "",
   });
   const [signUp, { error }] = useMutation(ADD_USER);
-  // update the state if the input changes
+  // Update the state if the input changes
   const inputChange = (event) => {
     const { name, value } = event.target;
 
@@ -105,7 +106,7 @@ export default function SignInSide() {
     });
   };
 
-  // submit the input
+  // Submit the input
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(inputState);
@@ -165,6 +166,7 @@ export default function SignInSide() {
               </Grid>
 
               <Grid item xs={12}>
+                {/* GETS THE ZODIAC SIGN FROM USER INPUT*/}
                 <Select
                   id="zodiacSign"
                   label="Astrological Sign"
@@ -175,7 +177,6 @@ export default function SignInSide() {
                   fullWidth
                   required
                   input={<BootstrapInput />}
-
                 >
                   <option value="aquarius">Aquarius (Jan. 20 - Febr. 18)</option>
                   <option value="pisces">Pisces (Feb. 19-Mar. 20)</option>

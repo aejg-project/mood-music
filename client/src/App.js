@@ -4,7 +4,6 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 import "./index.css";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Login from "./pages/Login";

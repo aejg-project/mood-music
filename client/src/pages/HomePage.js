@@ -1,3 +1,4 @@
+// IMPORTS FOR EXTERNAL FILES
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+// MAIN STYLES FOR JSX
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(8),
   },
   card: {
-    height: '33%',
+    height: '40vh',
     display: 'flex',
     flexDirection: 'column',
     margin: "1rem",
@@ -47,8 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const cards = [1, 2, 3];
-
 export default function Album() {
   const classes = useStyles();
 
@@ -56,25 +56,25 @@ export default function Album() {
     <React.Fragment>
       <CssBaseline />
       <main>
-        {/* Horoscope Section */}
+        {/* Welcome Section */}
         <div className={classes.heroContent}>
           <Container className="lightFont" maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
               Welcome!
             </Typography>
             <Typography variant="h5" display="block" align="center" color="textSecondary" paragraph>
-              This is your home on the web for music curated for your personality. Come for your daily horoscope and stay for music customized for your mood. 
+              This is your home on the web for music curated for your personality. Come for your daily horoscope and stay for music customized for your mood.
             </Typography>
 
           </Container>
         </div>
-        {/* Horoscope ends here */}
+        {/* Welcome Section ends here */}
 
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container>
-              <Grid >
+            <Grid >
               <div className={classes.cardRow}>
-                {/* Card #1 */}
+                {/*--------- Card #1 ---------*/}
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -91,7 +91,7 @@ export default function Album() {
                   </CardContent>
                 </Card>
 
-                {/* Card #2 */}
+                {/*--------- Card #2 ---------*/}
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -108,7 +108,7 @@ export default function Album() {
                   </CardContent>
                 </Card>
 
-                {/* Card #3 */}
+                {/*--------- Card #3 ---------*/}
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
@@ -124,9 +124,8 @@ export default function Album() {
                     </Typography>
                   </CardContent>
                 </Card>
-                </div>
-              </Grid>
-             
+              </div>
+            </Grid>
           </Grid>
         </Container>
       </main>

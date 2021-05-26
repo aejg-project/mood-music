@@ -1,3 +1,4 @@
+// IMPORT JAVA WEB TOKEN DEPENDENCIIES
 import decode from 'jwt-decode';
 
 class AuthService {
@@ -42,4 +43,5 @@ class AuthService {
   }
 }
 
+// EXPORTS THE AUTH.JS FILE
 export default new AuthService();

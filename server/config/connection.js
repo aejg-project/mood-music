@@ -13,7 +13,9 @@ mongoose.connect(
 const connection = mongoose.connection;
 
 connection.once("open", function() {
+  // CONNECTION SUCCESSFUL MESSAGE
   console.log("Connection with MongoDB was successful");
 });
 
+// EXPORTS THE CONNECTION TO MONGODB
 module.exports = mongoose.connection;

@@ -1,5 +1,7 @@
+// IMPORT GRAPHQL DEPENDENCIIES
 import gql from "graphql-tag";
 
+// GRAPHQL QUERY (GET) FOR GETTING A SINGLE USER
 export const GET_USER = gql`
   {
     me {
@@ -14,16 +16,3 @@ export const GET_USER = gql`
     }
   }
 `;
-
-
-// go back to try and add artist/song schema
-
-/* 
-songSchema {
-        song
-        title
-        artist
-        albumArt
-        linkToSong
-      }
-*/
