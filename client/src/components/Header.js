@@ -38,6 +38,7 @@ const Header = () => {
                 {Auth.loggedIn() ? (
                   <Nav.Item >
                     <a href="/login" onClick={logout}>Logout</a>
+                    <a href="/dashboard">Dashboard</a>
                     <Navbar.Text>Signed in as: {email}</Navbar.Text>
                   </Nav.Item>
                 ) : (
