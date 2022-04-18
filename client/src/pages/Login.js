@@ -96,7 +96,7 @@ export default function SignInSide() {
           <form className={classes.form} onSubmit={handleFormSubmit}>
             <TextField
               variant="outlined"
-              margin="normal"
+              // margin="normal"
               required
               fullWidth
               id="email"
