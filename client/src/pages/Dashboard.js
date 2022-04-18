@@ -180,7 +180,7 @@ export default function Album() {
           });
         });
     }
-  }, [zodiacSign, horoscope, spotify.ClientId, spotify.ClientSecret]);
+  }, [zodiacSign, spotify.ClientId, spotify.ClientSecret]);
 
 
   //------------------------------------------
