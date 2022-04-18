@@ -15,6 +15,7 @@ import axios from "axios";
 import { Credentials } from "../Credentials";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_USER } from "../utils/queries";
+import { CircularProgress } from "@material-ui/core";
 
 
 // MAIN STYLES FOR JSX
@@ -44,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
   cardRow: {
+    width: '100%',
     height: '60vh',
     display: "flex",
     flexDirection: 'row',
@@ -67,6 +69,11 @@ const useStyles = makeStyles((theme) => ({
   button: {
     color: "#f57848",
     backgroundColor: "#471867"
+  },
+  loadingContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
   }
 }));
 
@@ -93,6 +100,8 @@ export default function Album() {
   const [spotifyLink1, setSpotifyLink1] = useState('');
   const [spotifyLink2, setSpotifyLink2] = useState('');
   const [spotifyLink3, setSpotifyLink3] = useState('');
+
+  const [artistsLoading, setArtistsLoading] = useState(true);
 
   const spotify = Credentials();
 
@@ -176,6 +185,9 @@ export default function Album() {
               setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
               setSpotifyLink2(response.data.artists.items[1].external_urls.spotify)
               setSpotifyLink3(response.data.artists.items[2].external_urls.spotify)
+
+              setArtistsLoading(false);
+
             });
           });
         });
@@ -318,11 +330,12 @@ export default function Album() {
         {/* Horoscope ends here */}
 
         <Container className={classes.cardGrid} maxWidth="md">
-          <Grid container>
-            <Grid >
+          <Grid fullWidth container>
+          {(artistsLoading || loading) && <div className={classes.loadingContainer}><CircularProgress /></div>}
+            <Grid fullWidth>
               <div className={classes.cardRow}>
                 {/*--------- Card #1 ---------*/}
-                <Card className={classes.card}>
+                {!artistsLoading && !loading && <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
                     image={artistImage1}
@@ -346,10 +359,10 @@ export default function Album() {
                       <a href={spotifyLink1} target='_blank'>Listen on Spotify</a>
                     </Button>{" "}
                   </CardActions>
-                </Card>
+                </Card>}
 
                 {/*--------- Card #2 ---------*/}
-                <Card className={classes.card}>
+                {!artistsLoading && !loading && <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
                     image={artistImage2}
@@ -373,10 +386,10 @@ export default function Album() {
                       <a href={spotifyLink2} target='_blank'>Listen on Spotify</a>
                     </Button>{" "}
                   </CardActions>
-                </Card>
+                </Card>}
 
                 {/*--------- Card #3 ---------*/}
-                <Card className={classes.card}>
+                {!artistsLoading && !loading && <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
                     image={artistImage3}
@@ -400,7 +413,7 @@ export default function Album() {
                       <a href={spotifyLink3} target='_blank'>Listen on Spotify</a>
                     </Button>{" "}
                   </CardActions>
-                </Card>
+                </Card>}
               </div>
             </Grid>
           </Grid>
