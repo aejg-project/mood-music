@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: '75vh',
-    width: '100%',
+    width: 262,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: "space-between",
@@ -161,16 +161,16 @@ export default function Album() {
               setArtistImage3(response.data.artists.items[2].images[1].url);
 
               // SET ARTIST GENRE 1
-              const genre1 = JSON.stringify(response.data.artists.items[0].genres);
-              setArtistGenre1(genre1.replace("[", '').replace("]", ''));
+              const genre1 = response.data.artists.items[0].genres.slice(0, 3);
+              setArtistGenre1(genre1.join(', '));
 
               // SET ARTIST GENRE 2
-              const genre2 = JSON.stringify(response.data.artists.items[1].genres);
-              setArtistGenre2(genre2.replace("[", '').replace("]", ''));
+              const genre2 = response.data.artists.items[1].genres.slice(0, 3);
+              setArtistGenre2(genre2.join(', '));
 
               // SET ARTIST GENRE 3
-              const genre3 = JSON.stringify(response.data.artists.items[2].genres);
-              setArtistGenre3(genre3.replace("[", '').replace("]", ''));
+              const genre3 = response.data.artists.items[2].genres.slice(0, 3);
+              setArtistGenre3(genre3.join(', '));
 
               // SET ARTIST LINK TO SPOTIFY
               setSpotifyLink1(response.data.artists.items[0].external_urls.spotify)
