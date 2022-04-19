@@ -126,11 +126,13 @@ export default function Album() {
       return;
     } else {
       axios
+      // get the horoscope response from the horoscope API
         .get("/getHoroscope?zodiac=" + zodiacSign)
         .then((response) => {
-          // console.log(response.data);
+          // set the state with the horoscope response 
           setHoroscope(response.data);
         })
+        // send req with credentials to spotify to get token
         .then(() => {
           axios("https://accounts.spotify.com/api/token", {
             headers: {
@@ -140,6 +142,7 @@ export default function Album() {
             },
             data: "grant_type=client_credentials",
             method: "POST",
+            // receive the token as a response from spotify
           }).then((tokenResponse) => {
             setToken(tokenResponse.data.access_token);
             const randomOffset = getRandomNumber(20, 100);
@@ -147,7 +150,7 @@ export default function Album() {
             // console.log(genreList);
             const randomGenreNumber = getRandomGenre(0, 2);
             const genre = genreList[randomGenreNumber];
-
+            // send req to spotify to get data based on the genre and the randomOffset that was delcared above
             axios(
               `https://api.spotify.com/v1/search?q=%20genre:%22${genre}%22&type=artist&offset=${randomOffset}&limit=3`,
               {
